@@ -1,0 +1,5 @@
+name.lisp		http://www.cs.rochester.edu/~daphnel/cs444/notes/names.lisp
+fistname.txt		http://aciddr0p.net/pwls.html
+lastname.txt		http://aciddr0p.net/pwls.html
+usa_abbr_state.txt	http://www.usps.com/ncsc/lookups/abbr_state.txt
+canada_provinces.txt	http://en.wikipedia.org/wiki/List_of_Canadian_provinces_and_territories_by_population
