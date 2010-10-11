@@ -22,16 +22,13 @@ public class Main {
 			BufferedReader bufferedReader = new BufferedReader(new FileReader(file));
 			StringBuilder dataset = new StringBuilder();
 			String line = null;
-			Pattern pattern = Pattern.compile("\\<"+ "title" +"\\>");
-			while((line = bufferedReader.readLine()) != null){
-				Matcher matcher = pattern.matcher(line);
-				if(matcher.matches()) {
-					line = line.replaceAll("\\<.*?\\>", "");
-					dataset.append(line + separateLine);
-				}
-			}
 			
-			System.out.println(dataset.toString());
+			while((line = bufferedReader.readLine()) != null){
+					dataset.append(line);
+			}
+			String[] header = dataset.toString().split("<NEW_HEADER>");
+			System.out.println(header.length);
+			System.out.println(header[0]);
 			
 		} catch (Exception e) {
 			// TODO: handle exception
