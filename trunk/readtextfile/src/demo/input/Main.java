@@ -37,10 +37,9 @@ public class Main {
 			while((line = bufferedReader.readLine()) != null){
 					dataset.append(line);
 			}
+			
 			String[] header = dataset.toString().split("<NEW_HEADER>");
-		
-			//System.out.println(header.length);
-			//System.out.println(header[0]);
+					
 			int countHeader = 0;
 			for (int i = 0; i < header.length; i++) {
 				StringBuilder headerXML = new StringBuilder();
