@@ -44,7 +44,7 @@ public class Main {
 			for (int i = 0; i < header.length; i++) {
 				StringBuilder headerXML = new StringBuilder();
 				headerXML.append("<NEW_HEADER>");
-				headerXML.append(header[0]);
+				headerXML.append(header[i]);
 				headerXML.append("</NEW_HEADER>");
 				header[i] = headerXML.toString();
 				countHeader++;
