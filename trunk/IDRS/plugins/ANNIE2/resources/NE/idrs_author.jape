@@ -1,0 +1,17 @@
+Phase:extractAuthorTemp
+Input: Token Person
+Options: control = appelt
+
+Rule: Author
+Priority: 40
+(
+	(
+		{Person} 
+		|
+		(			
+			{Token.string!=",", Token.string!="and", Token.kind!="number"}
+		)+
+	):author
+)
+-->
+:author.Author = {rule= "Author"}

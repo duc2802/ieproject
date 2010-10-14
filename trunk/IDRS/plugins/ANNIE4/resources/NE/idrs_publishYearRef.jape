@@ -1,0 +1,170 @@
+Phase: ExtractPubnRef
+Input: Token Sentence Split Date TempYear
+Options: control=appelt
+
+
+//================ use to extract publishing year
+
+Rule: PublishNumber1
+Priority: 12
+(
+	//--- September 2005.
+	({Date.rule1 == DateName, Date.rule2 == DateOnlyFinal}):pubn	
+)
+-->
+//:pubn.PublishNumber = {kind = "PublishNo"}
+{
+	//--- get the pubn annotation set
+	gate.AnnotationSet pubnSet = (gate.AnnotationSet)bindings.get("pubn");
+	//--- get the only annotation from the set
+	gate.Annotation pubnAnn = (gate.Annotation)pubnSet.iterator().next();
+	//--- get the token annotation set from a pubn annotation
+	gate.AnnotationSet tokenAS = inputAS.get("Token", pubnAnn.getStartNode().getOffset(), pubnAnn.getEndNode().getOffset());
+	
+	List tokens = new ArrayList(tokenAS);
+	
+	if(tokens.isEmpty())
+		return;
+	
+	Collections.sort(tokens, new gate.util.OffsetComparator());
+	
+	gate.Annotation LastToken = (gate.Annotation) tokens.get(tokens.size()-1);
+	
+	String strYear = LastToken.getFeatures().get("string").toString();
+	
+	gate.FeatureMap features = Factory.newFeatureMap();
+	features.put("kind", "PublishNo");
+	features.put("rule", "PublishNumber1");
+	features.put("string", strYear);
+	
+	outputAS.add(LastToken.getStartNode(), LastToken.getEndNode(), "PublishNumber",features);
+}
+
+
+Rule: PublishNumber2
+Priority: 11
+(
+	//--- co trong list year
+	//--- (2001)
+	{Token.kind== punctuation, Token.position == startpunct,Token.string == "("}
+	({Date.rule1 == TempYear2}|{Date.rule1 == TempYear1}):pubn	
+	{Token.kind== punctuation, Token.position == endpunct,Token.string == ")"}
+)
+-->
+:pubn.PublishNumber = {kind = "PublishNo", rule = "PublishNumber2"}
+
+
+Rule: PublishNumber3
+Priority: 12
+(
+	//--- co trong list year
+	({Date.rule1 == TempYear2}):pubn	
+)
+-->
+:pubn.PublishNumber = {kind = "PublishNo", rule = "PublishNumber3"}
+
+
+
+
+
+//=========================== NOT PUBLISH NUMBER ==================================
+
+Rule: NotPublishNumber1
+Priority: 10
+(
+	//--- pages 1689-1731.
+	{Token.string == "pages"}
+	({Date.rule1 == TempYear2}):Nopubn1
+	{Token.category == NN, Token.kind== punctuation, Token.subkind == dashpunct}
+	({Date.rule1 == TempYear2}):Nopubn2
+)		
+-->	
+{
+	gate.AnnotationSet Nopubn = (gate.AnnotationSet)bindings.get("Nopubn1");
+	outputAS.removeAll(Nopubn);
+	Nopubn = (gate.AnnotationSet)bindings.get("Nopubn2");
+	outputAS.removeAll(Nopubn);
+
+}
+
+Rule: NotPublishNumber2
+Priority: 10
+(
+	//--- pp. 1689-1731  or  pp. 2009
+	{Token.string == "pp"}{Token.length==1}
+	({Date.rule1 == TempYear2}):Nopubn1
+	({Token.category == NN, Token.kind== punctuation, Token.subkind == dashpunct}
+	({Date.rule1 == TempYear2}):Nopubn2)?
+)
+-->
+:Nopubn1.NotPublishNumber = {kind = "NotPublishNumber", rule = "NotPublishNumber2"},
+:Nopubn2.NotPublishNumber = {kind = "NotPublishNumber", rule = "NotPublishNumber2"}
+
+
+Rule: NotPublishNumber3
+Priority: 10
+(
+	//--- volume 2005
+	{Token.string == "volume"}
+	({Date.rule1 == TempYear2}):Nopubn1
+	({Token.string == "of"})?
+)		
+-->	
+{
+	gate.AnnotationSet Nopubn = (gate.AnnotationSet)bindings.get("Nopubn1");
+	outputAS.removeAll(Nopubn);
+}
+
+Rule: NotPublishNumber4
+Priority: 10
+(
+	//--- 18:1-31 or (3):43-49 or 3(1):41–60 or 34(1-3):43-69 or 36(SI):225-238
+	(({Date.rule1 == TempYear2}|{Token.kind==number}):Nopubn1)?
+	({Token.string=="("})?
+	(
+		(
+			({Date.rule1 == TempYear2}|{Token.kind==number}):Nopubn2
+			({Token.length==1} ({Date.rule1 == TempYear2}|{Token.kind==number}):Nopubn3)?
+		)|
+		(
+			{Token.kind==word, Token.orth==allCaps}
+		)
+	)	
+	({Token.string==")"})?
+	{Token.string==":"}
+	({Date.rule1 == TempYear2}|{Token.kind==number}):Nopubn4
+	({Token.length==1}|{Token.category == NN, Token.kind== punctuation, Token.subkind == dashpunct})
+	({Date.rule1 == TempYear2}|{Token.kind==number}):Nopubn5
+)		
+-->	
+:Nopubn1.NotPublishNumber = {kind = "NotPublishNumber", rule = "NotPublishNumber4"},
+:Nopubn2.NotPublishNumber = {kind = "NotPublishNumber", rule = "NotPublishNumber4"},
+:Nopubn3.NotPublishNumber = {kind = "NotPublishNumber", rule = "NotPublishNumber4"},
+:Nopubn4.NotPublishNumber = {kind = "NotPublishNumber", rule = "NotPublishNumber4"},
+:Nopubn5.NotPublishNumber = {kind = "NotPublishNumber", rule = "NotPublishNumber4"} 
+/* {
+	gate.AnnotationSet Nopubn = (gate.AnnotationSet)bindings.get("Nopubn1");
+	outputAS.removeAll(Nopubn);
+	Nopubn = (gate.AnnotationSet)bindings.get("Nopubn2");
+	outputAS.removeAll(Nopubn);
+	Nopubn = (gate.AnnotationSet)bindings.get("Nopubn3");
+	outputAS.removeAll(Nopubn);
+	Nopubn = (gate.AnnotationSet)bindings.get("Nopubn4");
+	outputAS.removeAll(Nopubn);
+	Nopubn = (gate.AnnotationSet)bindings.get("Nopubn5");
+	outputAS.removeAll(Nopubn);
+}  */
+
+Rule: NotPublishNumber5
+Priority: 10
+(
+	//--- IEEE 2005
+	({Token.category == NNP, Token.orth == upperInitial}| {Token.category == NNP, Token.orth == allCaps})
+	({Date.rule1 == TempYear2}):Nopubn1
+)		
+-->	
+{
+	gate.AnnotationSet Nopubn = (gate.AnnotationSet)bindings.get("Nopubn1");
+	outputAS.removeAll(Nopubn);
+}
+

@@ -1,0 +1,45 @@
+Phase:lineAffiliationAnnotation
+Input: Token SpaceToken Lookup
+Options: control = appelt
+
+Rule:LineAffiliationAnnotation
+Priority: 30
+(
+	(
+		{Token}
+		({SpaceToken.kind=="space"})?
+		
+	)*
+	(
+		{Token.string=="Dept"} | {Token.string=="dept"} |
+		{Token.string=="Dipartimento"} | {Token.string=="dipartimento"} |
+		{Token.string=="Universit"} | {Token.string=="universit"} |
+		{Token.string=="Faculty"} | {Token.string=="FACULTY"} |
+		{Lookup.majorType=="location"}  |
+		{Lookup.majorType=="org_key"} | {Lookup.majorType=="org_base"} |
+		{Lookup.majorType=="cdg"} | {Lookup.majorType=="facility_key", !Token.string=="Hall"} |
+		(
+			(
+				{Token.kind=="number", Token.length>=3}
+				{SpaceToken.kind=="space"}
+			) 
+			|
+			(
+				//3-5 Hikaridai, Seika, Soraku
+				{Token.kind=="number"}
+				({SpaceToken.kind=="space"})?
+				({Token.kind== "punctuation", Token.subkind =="dashpunct"})
+				({SpaceToken.kind=="space"})?
+				{Token.kind=="number"}
+			)
+		)
+	)
+	({SpaceToken.kind=="space"})?
+	(
+		{Token}
+		({SpaceToken.kind=="space"})?
+		
+	)*
+):lineAffiliationAnnotation
+-->
+:lineAffiliationAnnotation.LineAffiliationAnnotation = {rule = "LineAffiliationAnnotation"}

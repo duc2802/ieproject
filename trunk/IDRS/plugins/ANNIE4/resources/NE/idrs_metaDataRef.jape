@@ -1,0 +1,105 @@
+Phase: MetaData_Ref
+Input: Token Split Person
+Options: control=appelt
+
+Rule: MetaData_Ref1
+Priority: 300
+(	
+	(	
+		(({Token})+)
+	):authors
+	
+	{Split} 
+	(({Token.kind== punctuation, Token.position == startpunct})?)
+		
+	(
+		({Token.kind == word, Token.orth == upperInitial}|{Token.kind == word, Token.orth == allCaps})
+		(({Token})+)
+	):title
+	
+	{Split}
+	(({Token.kind== punctuation, Token.position == endpunct})?)
+		
+	(
+		({Token.kind == word, Token.orth == upperInitial}|{Token.kind == word, Token.orth == allCaps})
+		(({Token})+)
+	):affiliation
+	
+	{Split}
+	(({Token})+)?
+		
+)
+-->
+:authors.au = {kind="MetaData_Ref", rule = "MetaData_Ref1"},
+:title.ti = {kind="MetaData_Ref", rule = "MetaData_Ref1"},
+:affiliation.af = {kind="MetaData_Ref", rule = "MetaData_Ref1"}
+
+//==========================================================================
+//==========================================================================
+
+Rule: MetaData_Ref2
+Priority: 200
+
+	(	
+		(({Token})*)
+		{Person}
+	):authors
+	
+	{Token.kind== punctuation, Token.string == ","}
+	({Token.kind== punctuation, Token.position == startpunct})?
+	
+	(
+		{!Person, Token.kind == word, Token.orth == upperInitial}
+		(({Token.string != ",",Token.string != "."})+)
+	):title
+
+	{Token.kind== punctuation, Token.string == ","}
+	({Token.kind== punctuation, Token.position == endpunct})?
+	
+	(({Token})+):affiliation
+	
+-->
+:authors.au = {kind="MetaData_Ref", rule = "MetaData_Ref2"},
+:title.ti = {kind="MetaData_Ref", rule = "MetaData_Ref2"},
+:affiliation.af = {kind="MetaData_Ref", rule = "MetaData_Ref2"}
+
+//==========================================================================
+//==========================================================================
+
+Rule: MetaData_Ref3
+Priority: 75
+
+	(	
+		(({Token})*)
+		//--- thay cho {Person}
+		(
+			(INITIALS)?
+			{Token.kind == word, Token.orth == upperInitial}
+			({Token.kind == symbol, Token.length == 1} | {Token.kind == punctuation, Token.length == 1})?
+			{Token.kind == word}
+		)
+		//--- end thay cho {Person}
+	):authors
+	
+	{Token.kind== punctuation, Token.string == ","}
+	({Token.kind== punctuation, Token.position == startpunct})?
+	
+	(
+		{!Person, Token.kind == word, Token.orth == upperInitial}
+		(({Token.string != ",",Token.string != "."})+)
+	):title
+
+	{Token.kind== punctuation, Token.string == ","}
+	({Token.kind== punctuation, Token.position == endpunct})?
+		
+	(({Token})+):affiliation
+	
+-->
+:authors.au = {kind="MetaData_Ref", rule = "MetaData_Ref3"},
+:title.ti = {kind="MetaData_Ref", rule = "MetaData_Ref3"},
+:affiliation.af = {kind="MetaData_Ref", rule = "MetaData_Ref3"}
+
+
+//==========================================================================
+//==========================================================================
+ 

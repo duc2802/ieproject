@@ -1,0 +1,34 @@
+Phase:lineEmailAnnotation
+Input: Token SpaceToken Address
+Options: control = appelt
+
+Rule:LineEmailAnnotation
+Priority: 30
+(	
+	(
+		//Pattern {mo-chen03, sjt}@mails.tsinghua.edu.cn
+		{Token.string=="{"}
+		(
+			{Token}
+			({SpaceToken.kind=="space"})?
+			
+		)+
+		({SpaceToken.kind=="control"})?
+	)?
+	(
+		{Token}
+		({SpaceToken.kind=="space"})?
+		
+	)+
+	(
+		{Token.string=="@"} | {Address.kind=="email"} | {Token.string=="}"}
+	)
+	({SpaceToken.kind=="space"})?
+	(
+		{Token}
+		({SpaceToken.kind=="space"})?
+		
+	)+
+):lineEmailAnnotation
+-->
+:lineEmailAnnotation.LineEmailAnnotation = {rule = "LineEmailAnnotation"}

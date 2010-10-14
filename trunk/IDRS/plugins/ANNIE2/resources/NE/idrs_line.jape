@@ -1,0 +1,14 @@
+Phase:extractLine
+Input: Token SpaceToken
+Options: control = appelt
+
+Rule:Line
+Priority: 30
+(
+	(
+		{Token}
+		({SpaceToken.kind=="space"})?
+	)+
+):line
+-->
+:line.Line = {rule = "Line"}

@@ -1,0 +1,17 @@
+Phase:extractReferencesWord
+Input: Token SpaceToken
+Options: control = appelt
+
+Rule: ReferencesWord
+Priority: 40
+(
+	({SpaceToken.kind=="control"})+
+	(
+		{Token.kind=="number"}
+		({Token.string=="."})?
+		({SpaceToken.kind=="space"})+
+	)?
+	({Token.string=="References"} | {Token.string=="REFERENCES"} | {Token.string=="reference"} | {Token.string=="REFERENCE"} )
+):referencesWord 
+-->
+:referencesWord.ReferencesWord = {rule= "ReferencesWord" }

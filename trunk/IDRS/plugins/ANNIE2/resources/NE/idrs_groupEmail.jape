@@ -1,0 +1,28 @@
+Phase: extractGroupEmail
+Input: Token SpaceToken
+Options: control=appelt
+
+Rule: ExtractGroupEmail
+Priority: 10
+(
+	{Token.string=="{"}
+	(
+		{Token}
+		({SpaceToken.kind=="space"})?
+	)+
+	({SpaceToken.kind=="control"})?
+	(
+		{Token}
+		({SpaceToken.kind=="space"})?
+		
+	)+
+	{Token.string=="}"}
+	{Token.string=="@"}
+	(
+		{Token}
+		({SpaceToken.kind=="space"})?
+		
+	)+
+):tmp
+-->
+:tmp.GroupEmail = {rule="ExtractGroupEmail"}
