@@ -1,34 +1,46 @@
-<title> Protocols for Collecting Responses +L+
 
-in Multi-hop Radio Networks +L+ </title>
 
-<author> Chungki Lee James E. Burns +L+
+<title> Pseudo-Network Drivers and Virtual Networks +L+ </title>
 
-Mostafa H. Ammar +L+ </author>
+<author> S.M. Bellovin* +L+ </author>
 
-<pubnum> GIT-CC-92/28 +L+ </pubnum>
+<email> smb@ulysses.att.com +L+ </email>
 
-<date> June 1992 +L+ </date>
+<affiliation> AT&T Bell Laboratories +L+ </affiliation>
 
-<abstract> Abstract +L+
+<address> Murray Hill, New Jersey 07974 +L+ </address>
 
-The problem of collecting responses in multi-hop radio networks is considered. A given node, called the source, is to collect a specified number of +L+
+<abstract> ABSTRACT +L+
 
-responses from nodes in a radio network. The problem arises in several +L+
+Many operating systems have long had pseudo-teletypes, inter-process +L+
 
-applications of distributed systems. A deterministic and a randomized protocol for the problem are presented. The two protocols are analyzed and +L+
+communication channels that provide terminal semantics on one end, +L+
 
-their performance is compared. Conclusions are drawn about the suitability +L+
+and a smart server program on the other. We describe an analogous +L+
 
-of our protocols in various network environments. +L+ </abstract>
+concept, pseudo-network drivers. One end of the driver appears to be +L+
 
-<affiliation> College of Computing +L+ 
+a real network device, with the appropriate interface and semantics; +L+
 
- Georgia Institute of Technology +L+ </affiliation>
+data written to it goes to a program, however, rather than to a physical +L+
 
-<address> Atlanta, Georgia 30332-0280 +L+ </address>
+medium. Using this and some auxiliary mechanisms, we present a +L+
 
-<page> +PAGE+ </page>
+variety of applications, including system test, network monitoring, +L+
+
+dial-up TCP/IP, and ways to both improve and subvert network +L+
+
+security. Most notably, we show how pseudo-network devices can be +L+
+
+used to create virtual networks and to provide encrypted +L+
+
+communications capability. We describe two implementations, one +L+
+
+using a conventional driver for socket-based systems, and one using +L+
+
+stream pipes for System V. +L+ </abstract>
+
+<intro> 1. INTRODUCTION </intro>
 
 
 <NEW_HEADER>
