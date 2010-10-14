@@ -1,0 +1,18 @@
+Phase:extractAbstractWord
+Input: Token SpaceToken
+Options: control = appelt debug = true
+
+Rule: AbstractWord
+Priority: 30
+(
+	//
+	//Abstract or ABSTRACT
+	//
+	
+	({SpaceToken.kind=="control"})+
+	({Token.string=="Abstract\u2014" } | {Token.string=="ABSTRACT\u2014"} |
+	{Token.string=="Abstract" } | {Token.string=="ABSTRACT"})
+	({Token.string=="."})?
+):abstract_word
+-->
+:abstract_word.AbstractWord = {rule = "AbstractWord"}

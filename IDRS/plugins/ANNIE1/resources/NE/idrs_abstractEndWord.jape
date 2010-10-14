@@ -1,0 +1,36 @@
+Phase:extractAbstractEndWord
+Input: Token SpaceToken
+Options: control = appelt
+
+Rule: AbstractEndWord
+Priority: 30
+(
+	({SpaceToken.kind=="control"})+
+	(
+		//1. Introduction or 1. INTRODUCTION
+		(
+			({Token.string=="1"} | {Token.string=="I"})
+			({Token.string=="."})?
+			({SpaceToken.kind=="space"})+
+			({Token.string=="Introduction"} | {Token.string=="INTRODUCTION"})
+		)
+		|
+		// Keywords or Categories or General Term
+		(					
+			{Token.string=="Keywords"} | {Token.string=="KEYWORDS"} | 
+			(
+				({Token.string=="Key"} | {Token.string=="KEY"})
+				{SpaceToken.kind=="space"}
+				({Token.string=="Words"} | {Token.string=="WORDS"} | {Token.string=="words"})
+			)|
+			{Token.string=="Categories"} | {Token.string=="CATEGORIES"} |
+			(
+				({Token.string=="General"} | {Token.string=="GENERAL"})
+				{SpaceToken.kind=="space"}
+				({Token.string=="Term"} | {Token.string=="TERM"})
+			)
+		)
+	)
+):abstract_end_word
+-->
+:abstract_end_word.AbstractEndWord = {rule = "AbstractEndWord"}

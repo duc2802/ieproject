@@ -1,0 +1,96 @@
+<?xml version="1.0"?>
+<rdf:RDF
+    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+    xmlns:protege="http://protege.stanford.edu/plugins/owl/protege#"
+    xmlns:xsp="http://www.owl-ontologies.com/2005/08/07/xsp.owl#"
+    xmlns:pizza="http://www.pizza.com/ontologies/pizza.owl#"
+    xmlns:owl="http://www.w3.org/2002/07/owl#"
+    xmlns:owl2xml="http://www.w3.org/2006/12/owl2-xml#"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+    xmlns:swrl="http://www.w3.org/2003/11/swrl#"
+    xmlns:swrlb="http://www.w3.org/2003/11/swrlb#"
+    xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+  xml:base="http://www.pizza.com/ontologies/pizza.owl">
+  <owl:Ontology rdf:about=""/>
+  <owl:Class rdf:ID="PizzaBase"/>
+  <owl:Class rdf:ID="CheeseTopping">
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="PizzaTopping"/>
+    </rdfs:subClassOf>
+    <owl:disjointWith>
+      <owl:Class rdf:ID="MeatTopping"/>
+    </owl:disjointWith>
+  </owl:Class>
+  <owl:Class rdf:about="http://www.w3.org/2002/07/owl#Thing"/>
+  <owl:Class rdf:about="#MeatTopping">
+    <rdfs:subClassOf rdf:resource="#PizzaTopping"/>
+  </owl:Class>
+  <owl:Class rdf:ID="HamTopping">
+    <owl:disjointWith>
+      <owl:Class rdf:ID="SpicyBeefTopping"/>
+    </owl:disjointWith>
+    <rdfs:subClassOf rdf:resource="#MeatTopping"/>
+  </owl:Class>
+  <owl:Class rdf:ID="ThinAndCrispyBase">
+    <rdfs:subClassOf rdf:resource="#PizzaBase"/>
+  </owl:Class>
+  <owl:Class rdf:ID="DeepPanBase">
+    <rdfs:subClassOf rdf:resource="#PizzaBase"/>
+    <owl:disjointWith rdf:resource="#ThinAndCrispyBase"/>
+  </owl:Class>
+  <owl:Class rdf:ID="Pizza">
+    <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty>
+          <owl:ObjectProperty rdf:ID="hasBase"/>
+        </owl:onProperty>
+        <owl:someValuesFrom rdf:resource="#PizzaBase"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:about="#SpicyBeefTopping">
+    <rdfs:subClassOf rdf:resource="#MeatTopping"/>
+  </owl:Class>
+  <owl:Class rdf:ID="MozzarellaTopping">
+    <owl:disjointWith>
+      <owl:Class rdf:ID="ParmezanTopping"/>
+    </owl:disjointWith>
+    <rdfs:subClassOf rdf:resource="#CheeseTopping"/>
+  </owl:Class>
+  <owl:Class rdf:about="#ParmezanTopping">
+    <rdfs:subClassOf rdf:resource="#CheeseTopping"/>
+  </owl:Class>
+  <owl:ObjectProperty rdf:ID="IsToppingOf">
+    <owl:inverseOf>
+      <owl:ObjectProperty rdf:ID="hasTopping"/>
+    </owl:inverseOf>
+    <rdfs:subPropertyOf>
+      <owl:ObjectProperty rdf:ID="IsIngredientOf"/>
+    </rdfs:subPropertyOf>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:about="#IsIngredientOf">
+    <owl:inverseOf>
+      <owl:ObjectProperty rdf:ID="hasIngredient"/>
+    </owl:inverseOf>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#TransitiveProperty"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:about="#hasBase">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+    <rdfs:subPropertyOf>
+      <owl:ObjectProperty rdf:about="#hasIngredient"/>
+    </rdfs:subPropertyOf>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:ID="IsBaseOf">
+    <owl:inverseOf rdf:resource="#hasBase"/>
+    <rdfs:subPropertyOf rdf:resource="#IsIngredientOf"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:about="#hasIngredient">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#TransitiveProperty"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:about="#hasTopping">
+    <rdfs:subPropertyOf rdf:resource="#hasIngredient"/>
+  </owl:ObjectProperty>
+</rdf:RDF>
+
+<!-- Created with Protege (with OWL Plugin 3.4.2, Build 562)  http://protege.stanford.edu -->

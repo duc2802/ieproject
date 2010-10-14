@@ -1,0 +1,49 @@
+<MetadataPaper>
+		<topic>
+			<topic_name>...</topic_name>
+			<papers>
+				<paper>
+					<location>…</location>
+					<title>…</title>
+					<date>…</date>
+					<abstract>…</abstract>
+					<keyword>…</keyword>
+					
+					<concepts>
+						<concept>						
+							<concept_name>...</concept_name>
+							<concept_definition> </concept_definition>
+						</concept>
+						
+						<concept>
+						...
+						</concept>
+						
+					<concepts>
+					
+					<authors>
+						<author>
+							<author_name>…</author_name>
+							<affiliation>…</affiliation>
+							<email>…</email>
+							<web>…</web>
+						</author>
+						…				
+						<author>
+						</author>
+						…
+					</authors>
+					
+				</paper>
+				...
+				<paper>
+				</paper>
+				
+			</papers>
+		</topic>
+		...
+		<topic>
+		...
+		</topic>
+….
+</MetadataPaper>

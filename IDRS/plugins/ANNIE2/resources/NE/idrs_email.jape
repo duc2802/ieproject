@@ -1,0 +1,53 @@
+Phase:extractEmail
+Input:GroupEmail Token
+Options:control=appelt
+
+Rule:ExtractEmail
+Priority:10
+
+(
+	{GroupEmail}
+):tmp
+-->
+{
+	gate.AnnotationSet annSet = (gate.AnnotationSet)bindings.get("tmp");
+		
+	try
+	{
+		gate.Annotation ann = (gate.Annotation)annSet.iterator().next();
+		
+		String mydoc = doc.getContent().toString();
+		
+		int sOffset = ann.getStartNode().getOffset().intValue();
+		int eOffset = ann.getEndNode().getOffset().intValue();
+		
+		String contentGE = mydoc.substring(sOffset, eOffset);
+		String[] arrGE = contentGE.split("@");
+		
+		String[] arrPre = arrGE[0].substring(0, arrGE[0].length()-1).split(",");
+		
+		gate.FeatureMap features = Factory.newFeatureMap();
+		String strtmp = "";
+		String content = "";
+		for(int i=0 ; i<arrPre.length ; i++)
+		{		
+			while(arrPre[i].charAt(0)==' ' || arrPre[i].charAt(0)==(char)123) //(char)123 = '{'
+			{
+				strtmp = arrPre[i].substring(1, arrPre[i].length());
+				arrPre[i] = strtmp;		
+			}
+			while(arrPre[i].charAt(arrPre[i].length()-1)==' ')
+			{
+				strtmp = arrPre[i].substring(0, arrPre[i].length()-1);
+				arrPre[i] = strtmp;
+			}			
+			content += arrPre[i]+"@"+arrGE[1]+"";
+		}
+		features.put("string", content);
+		features.put("rule", "ExtractEmail");	
+		outputAS.add(ann.getStartNode(), ann.getEndNode(), "Email", features);
+		//inputAS.removeAll(annSet);
+	}
+	catch(Exception e)
+	{}
+}

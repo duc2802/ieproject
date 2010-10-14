@@ -1,0 +1,140 @@
+Phase: extractPublishDateAndPublishPlace
+Input: Token Lookup
+Options: control=appelt
+
+Macro: DATE
+(	
+	//May 2005
+	(
+		{Lookup.minorType=="month"}
+		({Token.kind=="punctuation"})?
+		{Lookup.majorType=="year"}
+	)
+	|
+	//May 15-17, 2005 or October 31- November 5
+	(
+		{Lookup.minorType=="month"}
+		{Token.kind=="number", Token.length<3}
+		{Token.string=="-"}
+		({Lookup.minorType=="month"})?
+		{Token.kind=="number", Token.length<3}
+		({Token.kind=="punctuation", Token.string==","})?
+		{Lookup.majorType=="year"}
+	)
+	|
+	({Lookup.majorType=="year"})
+)
+
+
+Rule: PublishDateAndPublishPlace1
+Priority: 100
+(
+	//Proceedings of the ACM/IEEE...., pp 37-48, ..., May, 2003
+	(
+		{Token.string=="Proceedings"} | 
+		{Token.string=="PROCEEDINGS"} |
+		(
+			({Token.string=="Proc"} | {Token.string=="PROC"})
+			{Token.string=="."}
+		)
+	)
+	(			
+		(
+			({Token.kind=="word"} | {Token.kind=="number"} | {Token.string=="."} |
+			{Token.subkind=="dashpunct"} | {Token.string=="/"} |
+			{Token.string=="("} | {Token.string==")"} | {Token.string==":"} |
+			{Token.string=="'"} | {Token.string=="~"} | {Token.string=="_"} | {Token.string=="?"})
+		)
+	)+
+):publishPlace
+({Token.string==","})
+(
+	(
+		(			
+			(
+				({Token.kind=="word"} | {Token.kind=="number"} | {Token.string=="."}
+				| {Token.subkind=="dashpunct"} | {Token.string=="/"}
+				| {Token.string=="("} | {Token.string==")"} | {Token.string==":"}
+				| {Token.string=="'"} | {Token.string=="~"} | {Token.string=="_"} | {Token.string=="?"})
+			)
+		)+
+	)
+	({Token.string==","})
+)+
+(
+	({Token.string==","})?
+	(
+		DATE
+	):publishDate
+)?
+-->
+:publishPlace.PublishPlace={rule="PublishDateAndPublishPlace1"},
+:publishDate.PublishDate={rule="PublishDateAndPublishPlace1"}
+
+///////////////////////////////////////////////////////////
+
+Rule: PublishDateAndPublishPlace2
+Priority: 90
+//CIKM'07, November 6-8, 2007
+(
+   ({Token.orth=="allCaps", Token.length >= 3} | {Lookup.majorType=="conference"})
+   ({Token.kind == "punctuation", Token.position=="endpunct"})
+   ({Token.kind=="number"})
+):publishPlace
+({Token.string==","})?
+(
+   {Lookup.minorType=="month"}
+   {Token.kind=="number", Token.length<3}
+   {Token.string=="-"}
+   ({Lookup.minorType=="month"})?
+   {Token.kind=="number", Token.length<3}
+   ({Token.kind=="punctuation", Token.string==","})?
+   ({Lookup.majorType=="year"}):publishDate
+)
+-->
+:publishPlace.PublishPlace={rule="PublishDateAndPublishPlace2"},
+:publishDate.PublishDate={rule="PublishDateAndpublishPlace2"}
+
+/////////////////////////////////////////////////////////////
+
+Rule: PublishDateAndPublishPlace3
+Priority: 80
+(
+	(		 
+		{Token.string =~ "[Cc]opyright"}		
+	)
+	|
+	(
+		{Token.kind == "symbol", Token.category == NN} |
+		{Token.string == "c"}
+	)
+)
+(
+	({Lookup.majorType=="year"} |
+	{Token.kind == "number", Token.length == 4})
+):publishDate
+(
+	({Token.string != "."})*
+):publishPlace
+-->
+:publishPlace.PublishPlace={rule="PublishDateAndPublishPlace3"},
+:publishDate.PublishDate={rule="PublishDateAndPublishPlace3"}
+
+/////////////////////////////////////////////////////////////
+
+Rule: PublishDateAndPublishPlace4
+Priority: 70
+(
+	//2007 IEEE/WIC/ACM International Conference on Web Intelligence
+	(DATE):publishDate
+	(
+		(
+			({Token.orth=="allCaps", Token.length >= 3} |{Lookup.majorType=="conference"} |
+			{Token.string=="Conference"} | {Token.string=="conference"})
+			({Token.string=="/"})?
+		)+
+	):publishPlace
+)
+-->
+:publishPlace.PublishPlace={rule="PublishDateAndPublishPlace4"},
+:publishDate.PublishDate={rule="PublishDateAndPublishPlace4"}

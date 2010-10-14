@@ -1,0 +1,145 @@
+Phase: ExtractAuthorRef
+Input: Token Sentence Lookup Person Split au Authors
+Options: control = appelt
+
+Rule: Author2
+Priority: 10
+(
+	{au}
+):tmpAu
+-->
+{
+	//--- get the Authors annotation set
+	gate.AnnotationSet AuthorSet = (gate.AnnotationSet)bindings.get("tmpAu");
+	//--- get the only annotation from the set
+	gate.Annotation AuthorAnn = (gate.Annotation)AuthorSet.iterator().next();
+	//--- get the person annotation set from a Authors annotation
+	
+	gate.AnnotationSet tokenAS = inputAS.get("Token", AuthorAnn.getStartNode().getOffset(), AuthorAnn.getEndNode().getOffset());
+	
+	List tokens = new ArrayList(tokenAS);
+	
+	if(tokens.isEmpty())
+		return;
+	
+	Collections.sort(tokens, new gate.util.OffsetComparator());
+	
+	gate.Annotation curToken = null;
+	
+	gate.FeatureMap features;
+	
+	int countAu = 0; // dung de dem so luong tac gia
+	gate.Annotation FirstToken = (gate.Annotation) tokens.get(0);
+	
+	long pStar = FirstToken.getStartNode().getOffset().longValue();
+	long pEnd = 0;
+	
+	gate.Node sNode = null;
+	gate.Node eNode = null;
+	
+	for(int i=0;i< tokens.size(); i++)
+	{
+		curToken = (gate.Annotation) tokens.get(i);
+		
+		if(curToken.getFeatures().get("string").toString().equals("and"))
+		{
+			gate.Annotation curPreToken = null;
+			curPreToken = (gate.Annotation) tokens.get(i - 1);
+			
+			//--- co' tren 2 tac gia:   , and  
+			//--- (cac tac gia truoc do da dc gan nhan --> chi can ga'n nhan cho tac gia cuoi cung)
+			if(curPreToken.getFeatures().get("string").toString().equals(","))
+			{
+				pStar = curToken.getEndNode().getOffset().longValue() + 1;
+				
+				//gate.Annotation lastToken = (gate.Annotation) tokens.get(tokens.size() -1);
+				//pEnd = lastToken.getEndNode().getOffset().longValue() -1 ;
+				pEnd = AuthorAnn.getEndNode().getOffset().longValue();
+				
+				sNode = new NodeImpl(null, pStar);
+				eNode = new NodeImpl(null, pEnd);
+				
+				features = Factory.newFeatureMap();
+			
+				features.put("kind", "Author2");
+				features.put("rule", "Author2");
+				
+				outputAS.add(sNode, eNode, "Author2",features);
+				countAu ++;
+				
+			}
+			else if (!curPreToken.getFeatures().get("string").toString().equals(","))//--- co' 2 tac gia:   and
+			{
+				//--- gan nhan cho tac gia 1
+				pEnd = curToken.getStartNode().getOffset().longValue() - 1;
+				
+				sNode = new NodeImpl(null, pStar);
+				eNode = new NodeImpl(null, pEnd);
+				
+				features = Factory.newFeatureMap();
+			
+				features.put("kind", "Author2");
+				features.put("rule", "Author2");
+				
+				outputAS.add(sNode, eNode, "Author2",features);
+				countAu ++;
+				
+				//--- gan nhan cho tac gia 2
+				pStar = curToken.getEndNode().getOffset().longValue() + 1;	
+				
+				//gate.Annotation lastToken = (gate.Annotation) tokens.get(tokens.size() -1);
+				//pEnd = lastToken.getEndNode().getOffset().longValue();
+				pEnd = AuthorAnn.getEndNode().getOffset().longValue();
+				
+				sNode = new NodeImpl(null, pStar);
+				eNode = new NodeImpl(null, pEnd);
+				
+				features = Factory.newFeatureMap();
+			
+				features.put("kind", "Author2");
+				features.put("rule", "Author2");
+				
+				outputAS.add(sNode, eNode, "Author2",features);
+				countAu ++;
+				
+			}
+			
+			
+		}
+		else if(curToken.getFeatures().get("string").toString().equals(","))
+		{
+			pEnd = curToken.getStartNode().getOffset().longValue();
+			
+			sNode = new NodeImpl(null, pStar);
+			eNode = new NodeImpl(null, pEnd);
+			
+			features = Factory.newFeatureMap();
+		
+			features.put("kind", "Author2");
+			features.put("rule", "Author2");
+			
+			outputAS.add(sNode, eNode, "Author2",features);
+			countAu ++;
+			pStar = curToken.getEndNode().getOffset().longValue() + 1;			
+		}
+	}
+	
+	//--- chi co 1 tac gia (khong co: "," or "and" or ", and")
+	if(countAu == 0)
+	{
+		gate.Annotation lastToken = (gate.Annotation) tokens.get(tokens.size() -1);
+		
+		pEnd = lastToken.getEndNode().getOffset().longValue();
+		
+		sNode = new NodeImpl(null, pStar);
+		eNode = new NodeImpl(null, pEnd);
+		
+		features = Factory.newFeatureMap();
+	
+		features.put("kind", "Author2");
+		features.put("rule", "Author2");
+		
+		outputAS.add(sNode, eNode, "Author2",features);
+		
+	}
+}

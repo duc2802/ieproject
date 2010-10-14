@@ -1,0 +1,42 @@
+Phase:extractReferences
+Input: Token SpaceToken Lookup Person
+Options: control = appelt
+
+Rule:ReferencesBreak
+Priority: 30
+(	
+	(
+		{SpaceToken.kind=="control"}
+		(
+			(		
+				({Token.string=="["})
+				({Token} | {SpaceToken.kind=="space"})+
+				({Token.string=="]"})
+			):referenceBreak_1
+			|
+			(
+				({Token.string=="("})
+				{Token.kind=="number", Token.length < 3}
+				({Token.string==")"})
+			):referenceBreak_2
+			|
+			(
+				{Token.kind=="number", Token.length < 3}
+				{Token.string=="."}
+			):referenceBreak_3
+			
+		)
+	)
+	|
+	(
+		({Token.string=="References"} | {Token.string=="REFERENCES"} | 
+		{Token.string=="."} | {Token.kind=="number"} | {Lookup.majorType=="year"})
+		(({SpaceToken.kind=="control"})+):referenceBreak_4
+		({Person} | {Lookup.majorType=="person_first"})
+	)
+)
+-->
+:referenceBreak_1.ReferenceBreak_1 = {rule = "ReferencesBreak"},
+:referenceBreak_2.ReferenceBreak_2 = {rule = "ReferencesBreak"},
+:referenceBreak_3.ReferenceBreak_3 = {rule = "ReferencesBreak"},
+:referenceBreak_4.ReferenceBreak_4 = {rule = "ReferencesBreak"}

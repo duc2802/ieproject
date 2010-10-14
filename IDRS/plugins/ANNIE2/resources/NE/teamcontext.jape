@@ -1,0 +1,68 @@
+/*
+*  teamcontext.jape
+*   
+*  Dhavalkumar Thakker, Nottingham Trent University/PA Photos 10 March 2009
+* 
+*  $Id: teamcontext.jape 0001 2009-03-10 dhaval $
+*
+*/
+
+Phase: teamcontext
+Input:  Lookup Token City Player
+Options: control = appelt debug = true
+
+//rules for identifying name of the team based on Players/City 
+Rule: teamcontext1
+Priority:50
+(
+    	
+ {City}
+	( 
+	 {Token.string=="United" }
+	 |
+	 {Token.string=="F.C" }
+         |
+	 {Token.string=="FC" }
+ 	 	 
+ 	)
+):team
+-->
+:team.Team = {rule= "teamcontext-teamcontext1" } 
+
+Rule: teamcontext2
+Priority:30
+(
+ (
+  {Token.kind==word, Token.category==NNP, Token.orth==upperInitial}
+  {Token.kind==word, Token.category==NNP, Token.orth==upperInitial}
+ )
+ |
+ {Token.kind==word, Token.category==NNP, Token.orth==upperInitial}
+):team
+(
+ {Token.string=="players"}
+ {Player}
+ {Token.string=="and" }
+ {Player}
+)
+-->
+:team.Team = {rule= "teamcontext-teamcontext2" } 
+
+Rule: teamcontext3
+Priority:40
+(
+ (
+  {Token.kind==word, Token.category==NNP, Token.orth==upperInitial}
+  {Token.kind==word, Token.category==NNP, Token.orth==upperInitial}
+ )
+ |
+ {Token.kind==word, Token.category==NNP, Token.orth==upperInitial}
+):team
+(
+ {Token}
+ {Player}
+ {Token}
+ {Player}
+)
+-->
+:team.Team = {rule= "teamcontext-teamcontext3" } 
