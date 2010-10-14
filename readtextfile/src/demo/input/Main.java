@@ -51,31 +51,23 @@ public class Main {
 			}
 			System.out.println("Count header : " + countHeader);
 			
-			DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
-	        DocumentBuilder db = dbf.newDocumentBuilder();
-	        InputSource is = new InputSource();
-	        is.setCharacterStream(new StringReader(header[0]));
+			for(int i = 0; i < header.length; i++) {
+				
+				DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+		        DocumentBuilder db = dbf.newDocumentBuilder();
+		        InputSource is = new InputSource();
+		        is.setCharacterStream(new StringReader(header[i]));
 
-	        Document doc = db.parse(is);
-	        NodeList nodes = doc.getElementsByTagName("title");
-	        Element element = (Element) nodes.item(0);
-	        NodeList fstNm = element.getChildNodes();
-	        System.out.println("Title header 1 : "  + ((Node) fstNm.item(0)).getNodeValue());
-	        
-	        NodeList nodes1 = doc.getElementsByTagName("author");
-	        Element element1 = (Element) nodes1.item(0);
-	        NodeList fstNm1 = element1.getChildNodes();
-	        System.out.println("Author header 1 : "  + ((Node) fstNm1.item(0)).getNodeValue());
-	        
-	        NodeList nodes2 = doc.getElementsByTagName("date");
-	        Element element2 = (Element) nodes2.item(0);
-	        NodeList fstNm2 = element2.getChildNodes();
-	        System.out.println("Date Publidh header 1 : "  + ((Node) fstNm2.item(0)).getNodeValue());
-	        
-	        NodeList nodes3 = doc.getElementsByTagName("abstract");
-	        Element element3 = (Element) nodes3.item(0);
-	        NodeList fstNm3 = element3.getChildNodes();
-	        System.out.println("Abstract header 1 : "  + ((Node) fstNm3.item(0)).getNodeValue());
+		        Document doc = db.parse(is);
+		        if(doc != null){
+		        	NodeList nodes = doc.getElementsByTagName("title");
+			        Element element = (Element) nodes.item(0);
+			        NodeList fstNm = element.getChildNodes();
+			        System.out.println("Title header " + (i + 1) + " : "  + ((Node) fstNm.item(0)).getNodeValue());			        	
+		        }
+		        	        
+			}
+			
 			
 		} catch (Exception e) {
 			// TODO: handle exception
