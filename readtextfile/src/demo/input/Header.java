@@ -1,5 +1,10 @@
 package demo.input;
 
 public class Header {
-	private Line 
+	
+	private Line[] line = null;
+	
+	public Header(String headerXML){
+		
+	}
 }

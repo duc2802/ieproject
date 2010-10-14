@@ -39,39 +39,24 @@ public class Main {
 			}
 			
 			String[] header = dataset.toString().split("<NEW_HEADER>");
-					
 			int countHeader = 0;
-			for (int i = 0; i < header.length; i++) {
-				StringBuilder headerXML = new StringBuilder();
-				headerXML.append("<NEW_HEADER>");
-				headerXML.append(header[i]);
-				headerXML.append("</NEW_HEADER>");
-				header[i] = headerXML.toString();
+			String startTitleTagString = "<title>";
+			String endTitleTagString = "</title>";
+			
+			for (int j = 0; j < header.length; j++) {
+				int startPointTitleTag = header[j].indexOf(startTitleTagString) + startTitleTagString.length();
+				int endPointTitleTag = header[j].indexOf(endTitleTagString);	
+				if(startPointTitleTag > 0 && endPointTitleTag > 0){
+					System.out.println("Title header " + (j + 1)+ " : " + header[j].substring(startPointTitleTag, endPointTitleTag));
+				}else {
+					System.out.println("Title header " + (j + 1)+ " : Not found");
+				}
 				countHeader++;
 			}
 			System.out.println("Count header : " + countHeader);
-			
-			for(int i = 0; i < header.length; i++) {
-				
-				DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
-		        DocumentBuilder db = dbf.newDocumentBuilder();
-		        InputSource is = new InputSource();
-		        is.setCharacterStream(new StringReader(header[i]));
-
-		        Document doc = db.parse(is);
-		        if(doc != null){
-		        	NodeList nodes = doc.getElementsByTagName("title");
-			        Element element = (Element) nodes.item(0);
-			        NodeList fstNm = element.getChildNodes();
-			        System.out.println("Title header " + (i + 1) + " : "  + ((Node) fstNm.item(0)).getNodeValue());			        	
-		        }
-		        	        
-			}
-			
-			
 		} catch (Exception e) {
 			// TODO: handle exception
-			System.out.println("File not found");
+			System.out.println(e.getMessage());
 		}
 	}
 }
