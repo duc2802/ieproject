@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileReader;
 import java.io.StringReader;
+import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -17,6 +18,12 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
 
+import core.extract.svm.Header;
+import core.extract.svm.Line;
+
+import utilily.extract.svm.HeaderReader;
+import utilily.extract.svm.LabelConst;
+
 public class Main {
 	
 	/**
@@ -26,37 +33,43 @@ public class Main {
 	
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		//String pathFile = "text.txt";
-		String pathFile = "tagged_headers.txt";		
-		File file = new File(pathFile);	
-		try {
-			BufferedReader bufferedReader = new BufferedReader(new FileReader(file));
-			StringBuilder dataset = new StringBuilder();
-			String line = null;
-			
-			while((line = bufferedReader.readLine()) != null){
-					dataset.append(line);
-			}
-			
-			String[] header = dataset.toString().split("<NEW_HEADER>");
-			int countHeader = 0;
-			String startTitleTagString = "<title>";
-			String endTitleTagString = "</title>";
-			
-			for (int j = 0; j < header.length; j++) {
-				int startPointTitleTag = header[j].indexOf(startTitleTagString) + startTitleTagString.length();
-				int endPointTitleTag = header[j].indexOf(endTitleTagString);	
-				if(startPointTitleTag > 0 && endPointTitleTag > 0){
-					System.out.println("Title header " + (j + 1)+ " : " + header[j].substring(startPointTitleTag, endPointTitleTag));
-				}else {
-					System.out.println("Title header " + (j + 1)+ " : Not found");
-				}
-				countHeader++;
-			}
-			System.out.println("Count header : " + countHeader);
-		} catch (Exception e) {
-			// TODO: handle exception
-			System.out.println(e.getMessage());
+		String pathFile = "text.txt";
+		//String pathFile = "tagged_headers.txt";					
+		String[] headersText = HeaderReader.read(pathFile);
+		Header[] headers = new Header[headersText.length];
+		int countHeader = 0;
+		for (int i = 0; i < headersText.length; i++) {
+			headers[i] = new Header(headersText[i]);
+			countHeader++;
 		}
+		System.out.println("Counted Header : " + countHeader);
+		for (int i = 0; i < headers.length; i++) {
+			System.out.println("Header " + (i + 1));
+			System.out.println("===================================");
+			System.out.println("Title : " );
+			ArrayList<Line> lines = headers[i].getLineWithLabel(LabelConst.TITLE);
+			for (Line line : lines) {
+				System.out.println(line.getContent());
+			}
+			
+			System.out.println("Author : " );
+			lines = headers[i].getLineWithLabel(LabelConst.AUTHOR);
+			for (Line line : lines) {
+				System.out.println(line.getContent());
+			}
+			
+			System.out.println("Affiliation : " );
+			lines = headers[i].getLineWithLabel(LabelConst.AFFILIATION);
+			for (Line line : lines) {
+				System.out.println(line.getContent());
+			}
+			
+			System.out.println("Abstract : " );
+			lines = headers[i].getLineWithLabel(LabelConst.ABSTRACT);
+			for (Line line : lines) {
+				System.out.println(line.getContent());
+			}
+		}
+		
 	}
 }
