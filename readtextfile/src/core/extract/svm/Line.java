@@ -26,6 +26,17 @@ public class Line {
 		this.feature = new LineSpecificFeature();
 	}
 	
+	/**
+	 * 
+	 * @Author : Huynh Minh Duc
+	 * @Comment :
+	 */
+	public Line(String content, int label){
+		this.content = content;
+		this.feature = new LineSpecificFeature();
+		this.label = label;		
+	}
+	
 	public String getContent() {
 		return content;
 	}
