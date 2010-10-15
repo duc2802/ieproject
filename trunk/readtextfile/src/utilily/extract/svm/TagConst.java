@@ -2,6 +2,9 @@ package utilily.extract.svm;
 
 public class TagConst {
 	
+	public static final String HEADER_TAG_START = "<NEW_HEADER>";
+	public static final String LINE_SEPARATE_JUNCTION = "\\+L\\+";
+	
 	public static final String TITLE_TAG_START = "<title>";
 	public static final String TITLE_TAG_END = "</title>";
 	

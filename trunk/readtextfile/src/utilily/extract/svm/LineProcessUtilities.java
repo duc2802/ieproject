@@ -1,6 +1,30 @@
 package utilily.extract.svm;
 
+import core.extract.svm.Line;
+
 public class LineProcessUtilities {
+	
+	public LineProcessUtilities(){
+		
+	}
+	
+	/**
+	 * 
+	 * @param contentTag
+	 * @param label
+	 * @return
+	 * @Author : Huynh Minh Duc
+	 * @Comment :
+	 */
+	public static Line[] getLineFromContentTag(String contentTag, int label){	
+			
+		String[] linesUnknownLabel = contentTag.split(TagConst.LINE_SEPARATE_JUNCTION);
+		Line[] lines = new Line[linesUnknownLabel.length];
+		for (int i = 0; i < linesUnknownLabel.length; i++) {
+			lines[i] = new Line(linesUnknownLabel[i], label);
+		}
+		return lines;
+	}
 	
 	/**
 	 * 
