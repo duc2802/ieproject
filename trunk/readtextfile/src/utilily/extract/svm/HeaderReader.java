@@ -3,6 +3,7 @@ package utilily.extract.svm;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
+import java.util.ArrayList;
 
 public class HeaderReader {
 	
@@ -33,6 +34,30 @@ public class HeaderReader {
 		}		
 	}
 	
-	//String pathFile = "text.txt";
-	String pathFile = "tagged_headers.txt";	
+	/**
+	 * 
+	 * @param urlFile
+	 * @return
+	 * @Author : Huynh Minh Duc
+	 * @Comment : Read a file content 
+	 */
+	public static ArrayList<String> readTextFile(String urlFile){
+		ArrayList<String> listWords = new ArrayList<String>();
+		File file = new File(urlFile);	
+		try {
+			BufferedReader bufferedReader = new BufferedReader(new FileReader(file));
+			String line = null;
+			
+			while((line = bufferedReader.readLine()) != null){
+				listWords.add(line);
+			}	
+			return listWords;
+			
+		}catch (Exception e) {
+			// TODO: handle exception
+			System.out.println(e.getMessage());
+			return null;
+		}	
+	}
+		
 }
