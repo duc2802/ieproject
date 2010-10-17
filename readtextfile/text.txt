@@ -96,94 +96,130 @@ donated by IBM, NCR, and Symbolics. +L+ </note>
 
 <NEW_HEADER>
 
-<title> Fast Barrier Synchronization in Wormhole k-ary n-cube Networks +L+
+<title> SuperWeb: Towards a Global Web-Based Parallel Computing Infrastructure +L+ </title>
 
-with Multidestination Worms  +L+ </title>
+<author> Albert D. Alexandrov, Maximilian Ibel, Klaus E. Schauser, and Chris J. Scheiman +L+ </author>
 
-<author> Dhabaleswar K. Panda +L+ </author>
+<affiliation> Department of Computer Science +L+
 
-<affiliation> Dept. of Computer and Information Science +L+ 
+University of California, Santa Barbara +L+ </affiliation>
 
- The Ohio State University, </affiliation> <address> Columbus, OH 43210-1277 +L+ </address>
+<address> Santa Barbara, CA 93106 +L+ </address>
 
-<phone> Tel: (614)-292-5199, Fax: (614)-292-2911 +L+ </phone>
-
-<email> E-mail: panda@cis.ohio-state.edu +L+ </email>
+<email> fberto,ibel,schauser,chrissg@cs.ucsb.edu +L+ </email>
 
 <abstract> Abstract +L+
 
-Proc. of the Int'l Symposium on High Performance +L+
+The Internet, best known by most users as the WorldWide-Web, continues to expand at an amazing pace. We +L+
 
-Computer Architecture (HPCA '95), pp. 200-209. +L+
+propose a new infrastructure to harness the combined resources, such as CPU cycles or disk storage, and make them +L+
 
-This paper presents a new approach to implement fast barrier synchronization in wormhole k-ary +L+
+available to everyone interested. This infrastructure has the +L+
 
-n-cubes. The novelty lies in using multidestination +L+
+potential for solving parallel supercomputing applications +L+
 
-messages instead of the traditional single destination +L+
+involving thousands of cooperating components. Our approach is based on recent advances in Internet connectivity +L+
 
-messages. Two different multidestination worm types, +L+
+and the implementation of safe distributed computing embodied in languages such as Java. +L+
 
-gather and broadcasting, are introduced to implement +L+
+We developed a prototype of a global computing infrastructure, called SuperWeb, that consists of hosts, brokers +L+
 
-the report and wake-up phases of barrier synchronization, respectively. Algorithms for complete and arbitrary set barrier synchronization are presented using +L+
+and clients. Hosts register a fraction of their computing resources (CPU time, memory, bandwidth, disk space) with +L+
 
-these new worms. It is shown that complete barrier +L+
+resource brokers. Client computations are then mapped by +L+
 
-synchronization in a k-ary n-cube system with e-cube +L+
+the broker onto the registered resources. We examine an economic model for trading computing resources, and discuss +L+
 
-routing can be implemented with 2n communication +L+
+several technical challenges associated with such a global +L+
 
-start-ups as compared to 2n log 2 k start-ups needed +L+
+computing environment. +L+ </abstract>
 
-with unicast-based message passing. For arbitrary set +L+
+<keyword> Keywords: Global computing, Internet, Java, WorldWide-Web, massively parallel computing, secure computing, +L+
 
-barrier, an interesting trend is observed where the synchronization cost keeps on reducing beyond a certain +L+
-
-number of participating nodes. +L+ </abstract>
+microeconomic model. +L+ </keyword>
 
 <intro> 1 Introduction </intro>
+
+<NEW_HEADER>
+
+<title> A Tool for Massively Replicating Internet Archives: +L+
+
+Design, Implementation, and Experience +L+ </title>
+
+<author> Katia Obraczka +L+ </author>
+
+<affiliation> University of Southern California +L+
+
+Information Science Institute +L+ </affiliation>
+
+<address> 4676 Admiralty Way +L+
+
+Marina del Rey, CA 90292, USA +L+ </address>
+
+<email> katia@isi.edu +L+ </email>
+
+<author> Peter Danzig, Dante DeLucia, Erh-Yuan Tsai +L+ </author>
+
+<affiliation> University of Southern California +L+
+
+Computer Science Department +L+ </affiliation>
+
+<address> Los Angeles, CA 90089-0781 +L+ </address>
+
+<email> fdanzig, dante, erhyuantg@usc.edu +L+ </email>
+
+<abstract> Abstract +L+
+
+This paper reports the design, implementation, and performance of a scalable and efficient tool to replicate Internet information services. Our tool targets replication +L+
+
+degrees of tens of thousands of weakly-consistent replicas scattered throughout the Internet's thousands of autonomously administered domains. The main goal of our +L+
+
+replication tool is to make existing replication algorithms +L+
+
+scale in today's exponentially-growing, autonomously-managed internetworks. +L+ </abstract>
+
+<intro> 1. Introduction </intro>
 
 
 <NEW_HEADER>
 
-<note> IEEE TRANSACTIONS ON PARALLEL AND DISTRIBUTED SYSTEMS, VOL. XX, NO. Y, MONTH 1999 1 +L+ </note>
+<title> An Optimal Weighting Criterion of Case Indexing for Both Numeric +L+
 
-<title> A Trip-based Multicasting Model in +L+
+and Symbolic Attributes +L+ </title>
 
-Wormhole-routed Networks with Virtual Channels +L+ </title>
+<author> Takao Mohri and Hidehiko Tanaka +L+ </author>
 
-<author> Yu-Chee Tseng, Dhabaleswar K. Panda, Member, IEEE, and Ten-Hwang Lai, Member, IEEE +L+ </author>
+<affiliation> Information Engineering Course, Faculty of Engineering +L+
 
-<abstract> Abstract| This paper focuses on efficient multicasting in +L+
+The University of Tokyo +L+ </affiliation>
 
-wormhole-routed networks. A trip-based model is proposed +L+
+<address> 7-3-1 Hongo Bunkyo-ku, Tokyo 113, Japan +L+ </address>
 
-to support adaptive, distributed, and deadlock-free multiple +L+
+<email> fmohri,tanakag@MTL.T.u-tokyo.ac.jp +L+ </email>
 
-multicast on any network with arbitrary topology using at +L+
+<abstract> Abstract +L+
 
-most two virtual channels per physical channel. This model +L+
+Indexing of cases is an important topic for Memory-Based Reasoning(MBR). One key problem is how to +L+
 
-significantly generalizes the path-based model proposed earlier [21], [22], which works only for Hamiltonian networks +L+
+assign weights to attributes of cases. Although several +L+
 
-and can not be applicable to networks with arbitrary topology resulted due to system faults. Fundamentals of the trip-based model, including the necessary and sufficient condition to be deadlock-free, and the use of appropriate number +L+
+weighting methods have been proposed, some methods cannot handle numeric attributes directly, so it +L+
 
-of virtual channels to avoid deadlock are investigated. The +L+
+is necessary to discretize numeric values by classification. Furthermore, existing methods have no theoretical background, so little can be said about optimality. +L+
 
-potential of this model is illustrated by applying it to hyper-cubes with faulty nodes. Simulation results indicate that the +L+
+We propose a new weighting method based on a statistical technique called Quantification Method II. It can +L+
 
-proposed model can implement multiple multicast on faulty +L+
+handle both numeric and symbolic attributes in the +L+
 
-hypercubes with negligible performance degradation. +L+ </abstract>
+same framework. Generated attribute weights are optimal in the sense that they maximize the ratio of variance between classes to variance of all cases. Experiments on several benchmark tests show that in many +L+
 
-<keyword> Keywords| Routing algorithm, Interprocessor communication, Multicast, Virtual channel, Wormhole-routing, +L+
+cases, our method obtains higher accuracies than some +L+
 
-Path-based routing, Collective communication, and Fault +L+
+other weighting methods. The results also indicate +L+
 
-tolerance. +L+ </keyword>
+that it can distinguish relevant attributes from irrelevant ones, and can tolerate noisy data. +L+ </abstract>
 
-<intro> I. Introduction </intro>
+<intro> Introduction </intro>
 
 
 <NEW_HEADER>
