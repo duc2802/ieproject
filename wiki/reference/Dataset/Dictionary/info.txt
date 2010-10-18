@@ -3,3 +3,6 @@ fistname.txt		http://aciddr0p.net/pwls.html
 lastname.txt		http://aciddr0p.net/pwls.html
 usa_abbr_state.txt	http://www.usps.com/ncsc/lookups/abbr_state.txt
 canada_provinces.txt	http://en.wikipedia.org/wiki/List_of_Canadian_provinces_and_territories_by_population
+male_name		be separated from name.lisp
+female_name		be separated from name.lisp
+dictionary_computer	http://foldoc.org/contents.html
