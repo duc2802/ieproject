@@ -2,16 +2,7 @@ package core.extract.svm;
 
 public class Word {
 	private String content;
-	private int dfValue;
-	
-	public Word(String content){
-		this.content = content;
-		dfValue = 1;
-	}
-	
-	public void increaseDFValue(){
-		dfValue++;
-	}
+	private WordSpecificFeature wordSpecificFeature;
 	
 	public String getContent() {
 		return content;
@@ -21,12 +12,14 @@ public class Word {
 		this.content = content;
 	}
 
-	public int getDfValue() {
-		return dfValue;
+	public WordSpecificFeature getWordSpecificFeature() {
+		return wordSpecificFeature;
 	}
 
-	public void setDfValue(int dfValue) {
-		this.dfValue = dfValue;
+	public void setWordSpecificFeature(WordSpecificFeature wordSpecificFeature) {
+		this.wordSpecificFeature = wordSpecificFeature;
 	}
+	
+	
 	
 }

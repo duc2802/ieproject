@@ -1,4 +1,4 @@
-package core.extract.svm;
+package core.extract.svm.domaindatabase;
 
 public class WordList {
 	private String content;
