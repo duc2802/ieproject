@@ -1,9 +1,14 @@
 package core.extract.svm;
 
+import java.util.ArrayList;
+
+import core.extract.svm.domaindatabase.WordList;
+
 public class Line {
 	
 	private String content;
 	private int label; //1..15 : constrain in a other file.
+	private ArrayList<WordList> words;
 	private LineSpecificFeature feature;
 	
 	/**

@@ -20,7 +20,7 @@ import org.xml.sax.InputSource;
 
 import core.extract.svm.Header;
 import core.extract.svm.Line;
-import core.extract.svm.Word;
+import core.extract.svm.domaindatabase.WordList;
 
 import utilily.extract.svm.HeaderReader;
 import utilily.extract.svm.LabelConst;
@@ -74,7 +74,7 @@ public class Main {
 		
 		String affiliationRemoved = affiliationString.toString().replaceAll(",", "");		
 		String[] affiTokens = affiliationRemoved.split(" ");
-		ArrayList<Word> affiliationListWord = new ArrayList<Word>();
+		ArrayList<WordList> affiliationListWord = new ArrayList<WordList>();
 		for (int i = 0; i < affiTokens.length; i++) {
 			if(!affiTokens[i].trim().equals("")){
 				
@@ -88,9 +88,9 @@ public class Main {
 				}
 				
 				if(isStopWord == false){
-					Word word = new Word(affiTokens[i].trim().toLowerCase());	
+					WordList word = new WordList(affiTokens[i].trim().toLowerCase());	
 					boolean existedWord = false;
-					for (Word wordlist : affiliationListWord) {
+					for (WordList wordlist : affiliationListWord) {
 						if (word.getContent().equals(wordlist.getContent())) {
 							existedWord = true;
 							wordlist.increaseDFValue();
@@ -105,7 +105,7 @@ public class Main {
 		
 		String addressRemoved = addressString.toString().replaceAll(",", "");		
 		String[] addressTokens = addressRemoved.split(" ");
-		ArrayList<Word> addressListWord = new ArrayList<Word>();
+		ArrayList<WordList> addressListWord = new ArrayList<WordList>();
 		for (int i = 0; i < addressTokens.length; i++) {
 			if(!addressTokens[i].trim().equals("")){
 				
@@ -119,9 +119,9 @@ public class Main {
 				}
 				
 				if(isStopWord == false){
-					Word word = new Word(addressTokens[i].trim().toLowerCase());	
+					WordList word = new WordList(addressTokens[i].trim().toLowerCase());	
 					boolean existedWord = false;
-					for (Word wordlist : addressListWord) {
+					for (WordList wordlist : addressListWord) {
 						if (word.getContent().equals(wordlist.getContent())) {
 							existedWord = true;
 							wordlist.increaseDFValue();
@@ -139,7 +139,7 @@ public class Main {
 		for (int i = 0; i < affiliationListWord.size() - 1; i++) {			
 			for (int j = i; j < affiliationListWord.size(); j++) {
 				if(affiliationListWord.get(i).getDfValue() < affiliationListWord.get(j).getDfValue()){
-					Word wordTemp = affiliationListWord.get(i);
+					WordList wordTemp = affiliationListWord.get(i);
 					affiliationListWord.set(i, affiliationListWord.get(j));
 					affiliationListWord.set(j, wordTemp);
 				}
@@ -149,7 +149,7 @@ public class Main {
 		for (int i = 0; i < addressListWord.size() - 1; i++) {			
 			for (int j = i; j < addressListWord.size(); j++) {
 				if(addressListWord.get(i).getDfValue() < addressListWord.get(j).getDfValue()){
-					Word wordTemp = addressListWord.get(i);
+					WordList wordTemp = addressListWord.get(i);
 					addressListWord.set(i, addressListWord.get(j));
 					addressListWord.set(j, wordTemp);
 				}
