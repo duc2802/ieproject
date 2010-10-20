@@ -20,6 +20,7 @@ import org.xml.sax.InputSource;
 
 import core.extract.svm.Header;
 import core.extract.svm.Line;
+import core.extract.svm.Word;
 import core.extract.svm.domaindatabase.WordList;
 
 import utilily.extract.svm.HeaderReader;
@@ -34,14 +35,48 @@ public class Main {
 	
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		//String pathFile = "text.txt";
+		String pathFile = "text.txt";
 		
 		String pathStopWordListFile = "StopWordList.txt";	
 		ArrayList<String> stopWordList = HeaderReader.readTextFile(pathStopWordListFile);
-		
-		String pathFile = "tagged_headers.txt";		
-		
 		String[] headersText = HeaderReader.read(pathFile);
+		Header[] headers = new Header[headersText.length];
+		
+		for (int i = 0; i < headersText.length; i++) {
+			headers[i] = new Header(headersText[i]);		
+		}	
+		//ArrayList<Line> ls = headers[2].getLine();
+		for (Header header : headers){
+			ArrayList<Line> ls = header.getLineWithLabel(LabelConst.AFFILIATION);			
+			for (Line line : ls) {
+				System.out.println(line.getContent());
+				line.calculateWordSpecific();
+				ArrayList<Word> ws = line.getWords();
+				for (Word word : ws){ 
+					System.out.print(word.getContent() + "\t : ");
+					ArrayList<Integer> orthographic = word.getOrthogrophicFeature();	
+					if(orthographic != null){
+						for (Integer integer : orthographic) {
+							System.out.print(integer);
+						}
+						System.out.println();
+					}else {
+						System.out.println();
+					}
+				}
+			}
+		}
+		//for (Header header : headers) {
+			//System.out.println(headers[0].getLineWithLabel(LabelConst.EMAIL).get(0).getWords().get(0).getOrthogrophicFeature().get(0));
+		//}
+		
+		
+		//System.out.println(headers[0].getLineWithLabel(LabelConst.EMAIL).get(1).getWords().get(0).getOrthogrophicFeature().get(0));
+		
+		
+		//String pathFile = "tagged_headers.txt";		
+		
+		/*String[] headersText = HeaderReader.read(pathFile);
 		Header[] headers = new Header[headersText.length];
 		int countHeader = 0;
 		for (int i = 0; i < headersText.length; i++) {
@@ -159,6 +194,6 @@ public class Main {
 		for (int i = 0; i < 20; i++) {			
 			System.out.println(affiliationListWord.get(i).getContent() + " : " + affiliationListWord.get(i).getDfValue());
 		}
-		
+		*/
 	}
 }
