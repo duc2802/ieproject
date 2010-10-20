@@ -1,5 +1,7 @@
 package utilily.extract.svm;
 
+import java.util.ArrayList;
+
 import core.extract.svm.Line;
 
 public class LineProcessUtilities {
@@ -16,12 +18,15 @@ public class LineProcessUtilities {
 	 * @Author : Huynh Minh Duc
 	 * @Comment :
 	 */
-	public static Line[] getLineFromContentTag(String contentTag, int label){	
+	public static ArrayList<Line> getLineFromContentTag(String contentTag, int label){	
 			
 		String[] linesUnknownLabel = contentTag.split(TagConst.LINE_SEPARATE_JUNCTION);
-		Line[] lines = new Line[linesUnknownLabel.length];
+		ArrayList<Line> lines = new ArrayList<Line>();
 		for (int i = 0; i < linesUnknownLabel.length; i++) {
-			lines[i] = new Line(linesUnknownLabel[i], label);
+			if(!linesUnknownLabel[i].trim().isEmpty()){
+				Line line = new Line(linesUnknownLabel[i].trim(), label);
+				lines.add(line);
+			}			
 		}
 		return lines;
 	}

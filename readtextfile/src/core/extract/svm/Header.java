@@ -28,121 +28,121 @@ public class Header {
 	private void intializeHeader(String headerText){
 		String textTag = LineProcessUtilities.getSubString(headerText, TagConst.TITLE_TAG_START, TagConst.TITLE_TAG_END);
 		if(textTag != null){
-			Line[] lineTemp = LineProcessUtilities.getLineFromContentTag(textTag, LabelConst.TITLE);
-			for (int i = 0; i < lineTemp.length; i++) {
-				lines.add(lineTemp[i]);
+			ArrayList<Line> lineTemp = LineProcessUtilities.getLineFromContentTag(textTag, LabelConst.TITLE);
+			for (int i = 0; i < lineTemp.size(); i++) {
+				lines.add(lineTemp.get(i));
 			}
 		}
 		
 		textTag = LineProcessUtilities.getSubString(headerText, TagConst.AUTHOR_TAG_START, TagConst.AUTHOR_TAG_END);
 		if(textTag != null){
-			Line[] lineTemp = LineProcessUtilities.getLineFromContentTag(textTag, LabelConst.AUTHOR);
-			for (int i = 0; i < lineTemp.length; i++) {
-				lines.add(lineTemp[i]);
+			ArrayList<Line> lineTemp = LineProcessUtilities.getLineFromContentTag(textTag, LabelConst.AUTHOR);
+			for (int i = 0; i < lineTemp.size(); i++) {
+				lines.add(lineTemp.get(i));
 			}
 		}
 		
 		textTag = LineProcessUtilities.getSubString(headerText, TagConst.AFFILIATION_TAG_START, TagConst.AFFILIATION_TAG_END);
 		if(textTag != null){
-			Line[] lineTemp = LineProcessUtilities.getLineFromContentTag(textTag, LabelConst.AFFILIATION);
-			for (int i = 0; i < lineTemp.length; i++) {
-				lines.add(lineTemp[i]);
+			ArrayList<Line> lineTemp = LineProcessUtilities.getLineFromContentTag(textTag, LabelConst.AFFILIATION);
+			for (int i = 0; i < lineTemp.size(); i++) {
+				lines.add(lineTemp.get(i));
 			}
 		}
 		
 		textTag = LineProcessUtilities.getSubString(headerText, TagConst.ADDRESS_TAG_START, TagConst.ADDRESS_TAG_END);
 		if(textTag != null){
-			Line[] lineTemp = LineProcessUtilities.getLineFromContentTag(textTag, LabelConst.ADDRESS);
-			for (int i = 0; i < lineTemp.length; i++) {
-				lines.add(lineTemp[i]);
+			ArrayList<Line> lineTemp = LineProcessUtilities.getLineFromContentTag(textTag, LabelConst.ADDRESS);
+			for (int i = 0; i < lineTemp.size(); i++) {
+				lines.add(lineTemp.get(i));
 			}
 		}
 		
 		textTag = LineProcessUtilities.getSubString(headerText, TagConst.NOTE_TAG_START, TagConst.NOTE_TAG_END);
 		if(textTag != null){
-			Line[] lineTemp = LineProcessUtilities.getLineFromContentTag(textTag, LabelConst.NOTE);
-			for (int i = 0; i < lineTemp.length; i++) {
-				lines.add(lineTemp[i]);
+			ArrayList<Line> lineTemp = LineProcessUtilities.getLineFromContentTag(textTag, LabelConst.NOTE);
+			for (int i = 0; i < lineTemp.size(); i++) {
+				lines.add(lineTemp.get(i));
 			}
 		}
 		
 		textTag = LineProcessUtilities.getSubString(headerText, TagConst.EMAIL_TAG_START, TagConst.EMAIL_TAG_END);
 		if(textTag != null){
-			Line[] lineTemp = LineProcessUtilities.getLineFromContentTag(textTag, LabelConst.EMAIL);
-			for (int i = 0; i < lineTemp.length; i++) {
-				lines.add(lineTemp[i]);
+			ArrayList<Line> lineTemp = LineProcessUtilities.getLineFromContentTag(textTag, LabelConst.EMAIL);
+			for (int i = 0; i < lineTemp.size(); i++) {
+				lines.add(lineTemp.get(i));
 			}
 		}
 		
 		textTag = LineProcessUtilities.getSubString(headerText, TagConst.DATE_TAG_START, TagConst.DATE_TAG_END);
 		if(textTag != null){
-			Line[] lineTemp = LineProcessUtilities.getLineFromContentTag(textTag, LabelConst.DATE);
-			for (int i = 0; i < lineTemp.length; i++) {
-				lines.add(lineTemp[i]);
+			ArrayList<Line> lineTemp = LineProcessUtilities.getLineFromContentTag(textTag, LabelConst.DATE);
+			for (int i = 0; i < lineTemp.size(); i++) {
+				lines.add(lineTemp.get(i));
 			}
 		}
 		
 		textTag = LineProcessUtilities.getSubString(headerText, TagConst.ABSTRACT_TAG_START, TagConst.ABSTRACT_TAG_END);
 		if(textTag != null){
-			Line[] lineTemp = LineProcessUtilities.getLineFromContentTag(textTag, LabelConst.ABSTRACT);
-			for (int i = 0; i < lineTemp.length; i++) {
-				lines.add(lineTemp[i]);
+			ArrayList<Line> lineTemp = LineProcessUtilities.getLineFromContentTag(textTag, LabelConst.ABSTRACT);
+			for (int i = 0; i < lineTemp.size(); i++) {
+				lines.add(lineTemp.get(i));
 			}
 		}
 		
 		textTag = LineProcessUtilities.getSubString(headerText, TagConst.INTRO_TAG_START, TagConst.INTRO_TAG_END);
 		if(textTag != null){
-			Line[] lineTemp = LineProcessUtilities.getLineFromContentTag(textTag, LabelConst.INTRODUCTION);
-			for (int i = 0; i < lineTemp.length; i++) {
-				lines.add(lineTemp[i]);
+			ArrayList<Line> lineTemp = LineProcessUtilities.getLineFromContentTag(textTag, LabelConst.INTRODUCTION);
+			for (int i = 0; i < lineTemp.size(); i++) {
+				lines.add(lineTemp.get(i));
 			}
 		}
 		
 		textTag = LineProcessUtilities.getSubString(headerText, TagConst.PHONE_TAG_START, TagConst.PHONE_TAG_END);
 		if(textTag != null){
-			Line[] lineTemp = LineProcessUtilities.getLineFromContentTag(textTag, LabelConst.PHONE);
-			for (int i = 0; i < lineTemp.length; i++) {
-				lines.add(lineTemp[i]);
+			ArrayList<Line> lineTemp = LineProcessUtilities.getLineFromContentTag(textTag, LabelConst.PHONE);
+			for (int i = 0; i < lineTemp.size(); i++) {
+				lines.add(lineTemp.get(i));
 			}
 		}
 		
 		textTag = LineProcessUtilities.getSubString(headerText, TagConst.KEYWORD_TAG_START, TagConst.KEYWORD_TAG_END);
 		if(textTag != null){
-			Line[] lineTemp = LineProcessUtilities.getLineFromContentTag(textTag, LabelConst.KEYWORD);
-			for (int i = 0; i < lineTemp.length; i++) {
-				lines.add(lineTemp[i]);
+			ArrayList<Line> lineTemp = LineProcessUtilities.getLineFromContentTag(textTag, LabelConst.KEYWORD);
+			for (int i = 0; i < lineTemp.size(); i++) {
+				lines.add(lineTemp.get(i));
 			}
 		}
 		
 		textTag = LineProcessUtilities.getSubString(headerText, TagConst.WEB_TAG_START, TagConst.WEB_TAG_END);
 		if(textTag != null){
-			Line[] lineTemp = LineProcessUtilities.getLineFromContentTag(textTag, LabelConst.WEB);
-			for (int i = 0; i < lineTemp.length; i++) {
-				lines.add(lineTemp[i]);
+			ArrayList<Line> lineTemp = LineProcessUtilities.getLineFromContentTag(textTag, LabelConst.WEB);
+			for (int i = 0; i < lineTemp.size(); i++) {
+				lines.add(lineTemp.get(i));
 			}
 		}
 		
 		textTag = LineProcessUtilities.getSubString(headerText, TagConst.DEGREE_TAG_START, TagConst.DEGREE_TAG_END);
 		if(textTag != null){
-			Line[] lineTemp = LineProcessUtilities.getLineFromContentTag(textTag, LabelConst.DEGREE);
-			for (int i = 0; i < lineTemp.length; i++) {
-				lines.add(lineTemp[i]);
+			ArrayList<Line> lineTemp = LineProcessUtilities.getLineFromContentTag(textTag, LabelConst.DEGREE);
+			for (int i = 0; i < lineTemp.size(); i++) {
+				lines.add(lineTemp.get(i));
 			}
 		}
 		
 		textTag = LineProcessUtilities.getSubString(headerText, TagConst.PUBNUM_TAG_START, TagConst.PUBNUM_TAG_END);
 		if(textTag != null){
-			Line[] lineTemp = LineProcessUtilities.getLineFromContentTag(textTag, LabelConst.PUBNUM);
-			for (int i = 0; i < lineTemp.length; i++) {
-				lines.add(lineTemp[i]);
+			ArrayList<Line> lineTemp = LineProcessUtilities.getLineFromContentTag(textTag, LabelConst.PUBNUM);
+			for (int i = 0; i < lineTemp.size(); i++) {
+				lines.add(lineTemp.get(i));
 			}
 		}
 		
 		textTag = LineProcessUtilities.getSubString(headerText, TagConst.PAGE_TAG_START, TagConst.PAGE_TAG_END);
 		if(textTag != null){
-			Line[] lineTemp = LineProcessUtilities.getLineFromContentTag(textTag, LabelConst.PAGE);
-			for (int i = 0; i < lineTemp.length; i++) {
-				lines.add(lineTemp[i]);
+			ArrayList<Line> lineTemp = LineProcessUtilities.getLineFromContentTag(textTag, LabelConst.PAGE);
+			for (int i = 0; i < lineTemp.size(); i++) {
+				lines.add(lineTemp.get(i));
 			}
 		}
 	}
