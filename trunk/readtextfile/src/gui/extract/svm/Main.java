@@ -35,21 +35,22 @@ public class Main {
 	
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		String pathFile = "text.txt";
-		
-		String pathStopWordListFile = "StopWordList.txt";	
-		ArrayList<String> stopWordList = HeaderReader.readTextFile(pathStopWordListFile);
+		//String pathFile = "text.txt";
+		String pathFile = "tagged_headers.txt";
+		String pathStopWordFile = "StopWordList.txt";
+				
 		String[] headersText = HeaderReader.read(pathFile);
 		Header[] headers = new Header[headersText.length];
-		
+		ArrayList<String> stopWordList = HeaderReader.readTextFile(pathStopWordFile );
 		for (int i = 0; i < headersText.length; i++) {
 			headers[i] = new Header(headersText[i]);		
 		}	
-		//ArrayList<Line> ls = headers[2].getLine();
+		
 		for (Header header : headers){
-			ArrayList<Line> ls = header.getLineWithLabel(LabelConst.AFFILIATION);			
+			ArrayList<Line> ls = header.getLineWithLabel(LabelConst.AUTHOR);			
 			for (Line line : ls) {
 				System.out.println(line.getContent());
+				System.out.println(" CsenLen : " + line.getFeature().getCSentenceLength());
 				line.calculateWordSpecific();
 				ArrayList<Word> ws = line.getWords();
 				for (Word word : ws){ 
@@ -65,19 +66,10 @@ public class Main {
 					}
 				}
 			}
-		}
-		//for (Header header : headers) {
-			//System.out.println(headers[0].getLineWithLabel(LabelConst.EMAIL).get(0).getWords().get(0).getOrthogrophicFeature().get(0));
-		//}
+		}		
 		
-		
-		//System.out.println(headers[0].getLineWithLabel(LabelConst.EMAIL).get(1).getWords().get(0).getOrthogrophicFeature().get(0));
-		
-		
-		//String pathFile = "tagged_headers.txt";		
-		
-		/*String[] headersText = HeaderReader.read(pathFile);
-		Header[] headers = new Header[headersText.length];
+		//String[] headersText = HeaderReader.read(pathFile);
+		//Header[] headers = new Header[headersText.length];
 		int countHeader = 0;
 		for (int i = 0; i < headersText.length; i++) {
 			headers[i] = new Header(headersText[i]);
@@ -89,11 +81,12 @@ public class Main {
 		
 		System.out.println("Counted Header : " + countHeader);
 		
-		for (int i = 0; i < 500; i++) {
+		/*for (int i = 0; i < 500; i++) {
 			//Line Affiliation
 			ArrayList<Line> linesAffiliation = headers[i].getLineWithLabel(LabelConst.AFFILIATION);
 			
 			for (Line line : linesAffiliation) {
+				affiliationString.append(" ");
 				affiliationString.append(line.getContent());
 			}
 			
@@ -193,7 +186,7 @@ public class Main {
 		
 		for (int i = 0; i < 20; i++) {			
 			System.out.println(affiliationListWord.get(i).getContent() + " : " + affiliationListWord.get(i).getDfValue());
-		}
-		*/
+		}*/
+	
 	}
 }

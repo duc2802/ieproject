@@ -223,3 +223,27 @@ that it can distinguish relevant attributes from irrelevant ones, and can tolera
 
 
 <NEW_HEADER>
+
+<title> Using Don't Cares in Logic Minimization for +L+
+
+LUT-Based FPGAs +L+ </title>
+
+<author>  Philip Chong  13327872 +L+ </author>
+
+<date> May 25, 1997 +L+ </date>
+
+<abstract> Abstract +L+
+
+Don't care information has proven to be useful in logic minimization. +L+
+
+Here, the use of don't care information in network collapsing for mapping +L+
+
+to LUT-based FPGAs is explored. Results are shown which indicate that +L+
+
+this approach does not result in appreciable improvements in network size. +L+ </abstract>
+
+<intro> 1 Introduction </intro>
+
+
+<NEW_HEADER>
+

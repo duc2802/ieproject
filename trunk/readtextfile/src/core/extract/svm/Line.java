@@ -10,7 +10,7 @@ public class Line {
 	private String content;
 	private int label; //1..15 : constrain in a other file.
 	private ArrayList<Word> words;
-	private LineSpecificFeature feature;
+	private LineSpecificFeature lineSpecificFeature;
 	
 	/**
 	 * 
@@ -19,7 +19,7 @@ public class Line {
 	 */
 	public Line(){
 		content = null;
-		feature = new LineSpecificFeature();		
+		lineSpecificFeature = new LineSpecificFeature();		
 	}
 	
 	public void calculateWordSpecific(){
@@ -36,7 +36,7 @@ public class Line {
 	public Line(String content){
 		words = new ArrayList<Word>();
 		this.content = content;
-		this.feature = new LineSpecificFeature();
+		this.lineSpecificFeature = new LineSpecificFeature();
 		this.words = this.toWord(content);
 	}
 	
@@ -48,7 +48,7 @@ public class Line {
 	public Line(String content, int label){
 		words = new ArrayList<Word>();
 		this.content = content;
-		this.feature = new LineSpecificFeature();
+		this.lineSpecificFeature = new LineSpecificFeature();
 		this.label = label;
 		this.words = this.toWord(content);
 	}
@@ -56,13 +56,16 @@ public class Line {
 	public ArrayList<Word> toWord(String lineContent){
 		ArrayList<Word> wordTemp = new ArrayList<Word>();		
 		String[] splitSpace = lineContent.split(" ");
+		int countWordInLine = 0;
 		for (String string1 : splitSpace) {
-			if(string1.trim() != null){
+			if(!string1.equals("")){
 				Word w = new Word();
 				w.setContent(string1.trim());
 				wordTemp.add(w);
+				countWordInLine++;
 			}
 		}
+		lineSpecificFeature.setCSentenceLength(countWordInLine);
 		return wordTemp;
 	}
 	
@@ -87,10 +90,10 @@ public class Line {
 		this.label = label;
 	}
 	public LineSpecificFeature getFeature() {
-		return feature;
+		return lineSpecificFeature;
 	}
 	public void setFeature(LineSpecificFeature feature) {
-		this.feature = feature;
+		this.lineSpecificFeature = feature;
 	}
 	
 	
