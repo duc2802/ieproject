@@ -36,8 +36,8 @@ public class Main {
 	
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		//String pathFile = "text.txt";
-		String pathFile = "tagged_headers.txt";
+		String pathFile = "text.txt";
+		//String pathFile = "tagged_headers.txt";
 		String pathStopWordFile = "StopWordList.txt";
 				
 		String[] headersText = HeaderReader.read(pathFile);
@@ -48,11 +48,13 @@ public class Main {
 		}	
 		
 		for (Header header : headers){
-			ArrayList<Line> ls = header.getLineWithLabel(LabelConst.AUTHOR);			
+			System.out.println("Header : ===========================" );
+			ArrayList<Line> ls = header.getLineWithLabel(LabelConst.ABSTRACT);			
 			for (Line line : ls) {
-				System.out.println(line.getContent());
-				System.out.println(" CsenLen : " + line.getFeature().getCSentenceLength());
-				line.calculateWordSpecific();
+				System.out.println("Content : " + line.getContent());
+				System.out.println("   CSentenceLength : " + line.getFeature().getCSentenceLength());
+				System.out.println("   CLinePosition : " + line.getFeature().getCLinePosition());
+				/*line.calculateWordSpecific();
 				ArrayList<Word> ws = line.getWords();
 				for (Word word : ws){ 
 					System.out.print(word.getContent() + "\t : ");
@@ -65,13 +67,13 @@ public class Main {
 					}else {
 						System.out.println();
 					}
-				}
+				}*/
 			}
 		}		
 		
 		//String[] headersText = HeaderReader.read(pathFile);
 		//Header[] headers = new Header[headersText.length];
-		int countHeader = 0;
+		/*int countHeader = 0;
 		for (int i = 0; i < headersText.length; i++) {
 			headers[i] = new Header(headersText[i]);
 			countHeader++;
@@ -80,7 +82,7 @@ public class Main {
 		StringBuilder affiliationString = new StringBuilder();
 		StringBuilder addressString = new StringBuilder();
 		
-		System.out.println("Counted Header : " + countHeader);
+		System.out.println("Counted Header : " + countHeader);*/
 		
 		//test database
 		DatabaseDic data = new DatabaseDic(headers);
