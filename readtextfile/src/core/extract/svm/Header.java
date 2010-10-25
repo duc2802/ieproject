@@ -1,11 +1,9 @@
 package core.extract.svm;
 
 import java.util.ArrayList;
-
-import javax.naming.LimitExceededException;
-
 import utilily.extract.svm.LabelConst;
 import utilily.extract.svm.LineProcessUtilities;
+import utilily.extract.svm.StringProcess;
 import utilily.extract.svm.TagConst;
 
 public class Header {
@@ -26,10 +24,24 @@ public class Header {
 	 * @Comment :
 	 */
 	private void intializeHeader(String headerText){
+				
+		String contentHeaderNonTag = StringProcess.removeAllTagHeader(headerText);		
+		String[] linesAndNumber = StringProcess.convertHeaderTextToLines(contentHeaderNonTag);
+		
+		for (int i = 0; i < linesAndNumber.length; i++) {
+			System.out.println((i + 1) + " : " + linesAndNumber[i].trim());			
+		}
+		System.out.println("===============================");
+		
 		String textTag = LineProcessUtilities.getSubString(headerText, TagConst.TITLE_TAG_START, TagConst.TITLE_TAG_END);
 		if(textTag != null){
 			ArrayList<Line> lineTemp = LineProcessUtilities.getLineFromContentTag(textTag, LabelConst.TITLE);
 			for (int i = 0; i < lineTemp.size(); i++) {
+				for (int j = 0; j < linesAndNumber.length; j++) {
+					if(lineTemp.get(i).getContent().equals(linesAndNumber[j].trim())){
+						lineTemp.get(i).getFeature().setCLinePosition(j + 1);
+					}
+				}
 				lines.add(lineTemp.get(i));
 			}
 		}
@@ -38,6 +50,11 @@ public class Header {
 		if(textTag != null){
 			ArrayList<Line> lineTemp = LineProcessUtilities.getLineFromContentTag(textTag, LabelConst.AUTHOR);
 			for (int i = 0; i < lineTemp.size(); i++) {
+				for (int j = 0; j < linesAndNumber.length; j++) {
+					if(lineTemp.get(i).getContent().equals(linesAndNumber[j].trim())){
+						lineTemp.get(i).getFeature().setCLinePosition(j + 1);
+					}
+				}
 				lines.add(lineTemp.get(i));
 			}
 		}
@@ -46,6 +63,11 @@ public class Header {
 		if(textTag != null){
 			ArrayList<Line> lineTemp = LineProcessUtilities.getLineFromContentTag(textTag, LabelConst.AFFILIATION);
 			for (int i = 0; i < lineTemp.size(); i++) {
+				for (int j = 0; j < linesAndNumber.length; j++) {
+					if(lineTemp.get(i).getContent().equals(linesAndNumber[j].trim())){
+						lineTemp.get(i).getFeature().setCLinePosition(j + 1);
+					}
+				}
 				lines.add(lineTemp.get(i));
 			}
 		}
@@ -54,6 +76,11 @@ public class Header {
 		if(textTag != null){
 			ArrayList<Line> lineTemp = LineProcessUtilities.getLineFromContentTag(textTag, LabelConst.ADDRESS);
 			for (int i = 0; i < lineTemp.size(); i++) {
+				for (int j = 0; j < linesAndNumber.length; j++) {
+					if(lineTemp.get(i).getContent().equals(linesAndNumber[j].trim())){
+						lineTemp.get(i).getFeature().setCLinePosition(j + 1);
+					}
+				}
 				lines.add(lineTemp.get(i));
 			}
 		}
@@ -62,6 +89,11 @@ public class Header {
 		if(textTag != null){
 			ArrayList<Line> lineTemp = LineProcessUtilities.getLineFromContentTag(textTag, LabelConst.NOTE);
 			for (int i = 0; i < lineTemp.size(); i++) {
+				for (int j = 0; j < linesAndNumber.length; j++) {
+					if(lineTemp.get(i).getContent().equals(linesAndNumber[j].trim())){
+						lineTemp.get(i).getFeature().setCLinePosition(j + 1);
+					}
+				}
 				lines.add(lineTemp.get(i));
 			}
 		}
@@ -70,6 +102,11 @@ public class Header {
 		if(textTag != null){
 			ArrayList<Line> lineTemp = LineProcessUtilities.getLineFromContentTag(textTag, LabelConst.EMAIL);
 			for (int i = 0; i < lineTemp.size(); i++) {
+				for (int j = 0; j < linesAndNumber.length; j++) {
+					if(lineTemp.get(i).getContent().equals(linesAndNumber[j].trim())){
+						lineTemp.get(i).getFeature().setCLinePosition(j + 1);
+					}
+				}
 				lines.add(lineTemp.get(i));
 			}
 		}
@@ -78,6 +115,11 @@ public class Header {
 		if(textTag != null){
 			ArrayList<Line> lineTemp = LineProcessUtilities.getLineFromContentTag(textTag, LabelConst.DATE);
 			for (int i = 0; i < lineTemp.size(); i++) {
+				for (int j = 0; j < linesAndNumber.length; j++) {
+					if(lineTemp.get(i).getContent().equals(linesAndNumber[j].trim())){
+						lineTemp.get(i).getFeature().setCLinePosition(j + 1);
+					}
+				}
 				lines.add(lineTemp.get(i));
 			}
 		}
@@ -86,6 +128,11 @@ public class Header {
 		if(textTag != null){
 			ArrayList<Line> lineTemp = LineProcessUtilities.getLineFromContentTag(textTag, LabelConst.ABSTRACT);
 			for (int i = 0; i < lineTemp.size(); i++) {
+				for (int j = 0; j < linesAndNumber.length; j++) {
+					if(lineTemp.get(i).getContent().equals(linesAndNumber[j].trim())){
+						lineTemp.get(i).getFeature().setCLinePosition(j + 1);
+					}
+				}
 				lines.add(lineTemp.get(i));
 			}
 		}
@@ -94,6 +141,11 @@ public class Header {
 		if(textTag != null){
 			ArrayList<Line> lineTemp = LineProcessUtilities.getLineFromContentTag(textTag, LabelConst.INTRODUCTION);
 			for (int i = 0; i < lineTemp.size(); i++) {
+				for (int j = 0; j < linesAndNumber.length; j++) {
+					if(lineTemp.get(i).getContent().equals(linesAndNumber[j].trim())){
+						lineTemp.get(i).getFeature().setCLinePosition(j + 1);
+					}
+				}
 				lines.add(lineTemp.get(i));
 			}
 		}
@@ -102,6 +154,11 @@ public class Header {
 		if(textTag != null){
 			ArrayList<Line> lineTemp = LineProcessUtilities.getLineFromContentTag(textTag, LabelConst.PHONE);
 			for (int i = 0; i < lineTemp.size(); i++) {
+				for (int j = 0; j < linesAndNumber.length; j++) {
+					if(lineTemp.get(i).getContent().equals(linesAndNumber[j].trim())){
+						lineTemp.get(i).getFeature().setCLinePosition(j + 1);
+					}
+				}
 				lines.add(lineTemp.get(i));
 			}
 		}
@@ -110,6 +167,11 @@ public class Header {
 		if(textTag != null){
 			ArrayList<Line> lineTemp = LineProcessUtilities.getLineFromContentTag(textTag, LabelConst.KEYWORD);
 			for (int i = 0; i < lineTemp.size(); i++) {
+				for (int j = 0; j < linesAndNumber.length; j++) {
+					if(lineTemp.get(i).getContent().equals(linesAndNumber[j].trim())){
+						lineTemp.get(i).getFeature().setCLinePosition(j + 1);
+					}
+				}
 				lines.add(lineTemp.get(i));
 			}
 		}
@@ -118,6 +180,11 @@ public class Header {
 		if(textTag != null){
 			ArrayList<Line> lineTemp = LineProcessUtilities.getLineFromContentTag(textTag, LabelConst.WEB);
 			for (int i = 0; i < lineTemp.size(); i++) {
+				for (int j = 0; j < linesAndNumber.length; j++) {
+					if(lineTemp.get(i).getContent().equals(linesAndNumber[j].trim())){
+						lineTemp.get(i).getFeature().setCLinePosition(j + 1);
+					}
+				}
 				lines.add(lineTemp.get(i));
 			}
 		}
@@ -126,6 +193,11 @@ public class Header {
 		if(textTag != null){
 			ArrayList<Line> lineTemp = LineProcessUtilities.getLineFromContentTag(textTag, LabelConst.DEGREE);
 			for (int i = 0; i < lineTemp.size(); i++) {
+				for (int j = 0; j < linesAndNumber.length; j++) {
+					if(lineTemp.get(i).getContent().equals(linesAndNumber[j].trim())){
+						lineTemp.get(i).getFeature().setCLinePosition(j + 1);
+					}
+				}
 				lines.add(lineTemp.get(i));
 			}
 		}
@@ -134,6 +206,11 @@ public class Header {
 		if(textTag != null){
 			ArrayList<Line> lineTemp = LineProcessUtilities.getLineFromContentTag(textTag, LabelConst.PUBNUM);
 			for (int i = 0; i < lineTemp.size(); i++) {
+				for (int j = 0; j < linesAndNumber.length; j++) {
+					if(lineTemp.get(i).getContent().equals(linesAndNumber[j].trim())){
+						lineTemp.get(i).getFeature().setCLinePosition(j + 1);
+					}
+				}
 				lines.add(lineTemp.get(i));
 			}
 		}
@@ -142,6 +219,11 @@ public class Header {
 		if(textTag != null){
 			ArrayList<Line> lineTemp = LineProcessUtilities.getLineFromContentTag(textTag, LabelConst.PAGE);
 			for (int i = 0; i < lineTemp.size(); i++) {
+				for (int j = 0; j < linesAndNumber.length; j++) {
+					if(lineTemp.get(i).getContent().equals(linesAndNumber[j].trim())){
+						lineTemp.get(i).getFeature().setCLinePosition(j + 1);
+					}
+				}
 				lines.add(lineTemp.get(i));
 			}
 		}

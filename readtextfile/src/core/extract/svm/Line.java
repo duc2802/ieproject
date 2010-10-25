@@ -69,6 +69,8 @@ public class Line {
 		return wordTemp;
 	}
 	
+	
+	
 	public ArrayList<Word> getWords() {
 		return words;
 	}
