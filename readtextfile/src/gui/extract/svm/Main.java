@@ -36,25 +36,26 @@ public class Main {
 	
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		String pathFile = "text.txt";
-		//String pathFile = "tagged_headers.txt";
-		String pathStopWordFile = "StopWordList.txt";
+		//String pathFile = "text.txt";
+		String pathFile = "tagged_headers.txt";
 				
 		String[] headersText = HeaderReader.read(pathFile);
 		Header[] headers = new Header[headersText.length];
-		ArrayList<String> stopWordList = HeaderReader.readTextFile(pathStopWordFile );
-		for (int i = 0; i < headersText.length; i++) {
+		
+		for (int i = 0; i < 500; i++) {
 			headers[i] = new Header(headersText[i]);		
 		}	
 		
-		for (Header header : headers){
+		DatabaseDic data = new DatabaseDic(headers);
+		
+		/*for (int i = 0; i < 500; i++){
 			System.out.println("Header : ===========================" );
-			ArrayList<Line> ls = header.getLineWithLabel(LabelConst.ABSTRACT);			
+			ArrayList<Line> ls = headers[i].getLineWithLabel(LabelConst.ABSTRACT);			
 			for (Line line : ls) {
 				System.out.println("Content : " + line.getContent());
 				System.out.println("   CSentenceLength : " + line.getFeature().getCSentenceLength());
 				System.out.println("   CLinePosition : " + line.getFeature().getCLinePosition());
-				/*line.calculateWordSpecific();
+				line.calculateWordSpecific();
 				ArrayList<Word> ws = line.getWords();
 				for (Word word : ws){ 
 					System.out.print(word.getContent() + "\t : ");
@@ -67,9 +68,9 @@ public class Main {
 					}else {
 						System.out.println();
 					}
-				}*/
+				}
 			}
-		}		
+		}		*/
 		
 		//String[] headersText = HeaderReader.read(pathFile);
 		//Header[] headers = new Header[headersText.length];
@@ -85,13 +86,13 @@ public class Main {
 		System.out.println("Counted Header : " + countHeader);*/
 		
 		//test database
-		DatabaseDic data = new DatabaseDic(headers);
-		Word word = new Word();
+		
+		/*Word word = new Word();
 		word.setContent("al");
 		ArrayList<Integer> result = data.search(word);
 		for(int i = 0; i < result.size(); i++) {
 			System.out.print(result.get(i) + "    ");
-		}
+		}*/
 		/*for (int i = 0; i < 500; i++) {
 			//Line Affiliation
 			ArrayList<Line> linesAffiliation = headers[i].getLineWithLabel(LabelConst.AFFILIATION);

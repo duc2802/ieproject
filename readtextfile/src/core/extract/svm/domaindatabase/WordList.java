@@ -95,9 +95,9 @@ public class WordList {
 		}
 	}
 	
-	public boolean search(Word word) {
+	public boolean search(String word) {
 		for (int i = 0; i < wordList.size(); i++) {
-			if(wordList.get(i).getContent().equals(word.getContent())) {
+			if(wordList.get(i).getContent().equals(word)) {
 				return true;
 			}					
 		}
