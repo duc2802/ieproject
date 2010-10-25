@@ -3,6 +3,7 @@ package core.extract.svm;
 import java.util.ArrayList;
 
 import core.extract.svm.cluster.WordOrthogrophic;
+import core.extract.svm.domaindatabase.DatabaseDic;
 import core.extract.svm.domaindatabase.WordDic;
 
 public class Line {
@@ -22,7 +23,7 @@ public class Line {
 		lineSpecificFeature = new LineSpecificFeature();		
 	}
 	
-	public void calculateWordSpecific(){
+	public void calculateWordSpecific(DatabaseDic data){
 		for (Word w : words) {
 			w.setOrthogrophicFeature(WordOrthogrophic.checkOrthographicOfWord(w));
 		}

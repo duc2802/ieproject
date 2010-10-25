@@ -91,7 +91,7 @@ public class DatabaseDic {
 		return null;
 	}
 	
-	public ArrayList<Integer> search(Word word) {
+	public ArrayList<Integer> search(String word) {
 		ArrayList<Integer> result = new ArrayList<Integer>();
 		
 		for (int i = 0; i < wordLists.size(); i++) {

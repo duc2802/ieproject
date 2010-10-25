@@ -35,14 +35,16 @@ public class Dictionary {
 		
 		try {
 			BufferedReader bufferreader = new BufferedReader(new FileReader(file));
-			String line = null;
+			String line;
 			
-			while((line = bufferreader.readLine().toLowerCase()) != null) {
+			while((line = bufferreader.readLine()) != null) {
 				if(line.indexOf(" ") != -1) {
-					String[] words = line.toString().split(" ");
+					String[] words = line.split(" ");
 					for(String word : words) {						 
-						if(word.hashCode() != 0) // remove line empty
-							dict.add(word);
+						if(word.hashCode() != 0){ // remove line empty
+							System.out.println(word.toLowerCase());
+							dict.add(word.toLowerCase());
+						}
 					}
 				} else {
 					dict.add(line);
@@ -59,9 +61,9 @@ public class Dictionary {
 		}
 	}
 	
-	public boolean search(Word word) {
+	public boolean search(String word) {
 		for(int i = 0; i < dict.size(); i++) {
-			if(dict.get(i).equals(word.getContent())) {
+			if(dict.get(i).equals(word)) {
 				return true;
 			}
 		}
