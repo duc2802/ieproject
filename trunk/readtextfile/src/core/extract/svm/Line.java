@@ -3,7 +3,7 @@ package core.extract.svm;
 import java.util.ArrayList;
 
 import core.extract.svm.cluster.WordOrthogrophic;
-import core.extract.svm.domaindatabase.WordList;
+import core.extract.svm.domaindatabase.WordDic;
 
 public class Line {
 	
