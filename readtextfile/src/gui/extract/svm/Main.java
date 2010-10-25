@@ -21,6 +21,7 @@ import org.xml.sax.InputSource;
 import core.extract.svm.Header;
 import core.extract.svm.Line;
 import core.extract.svm.Word;
+import core.extract.svm.domaindatabase.DatabaseDic;
 import core.extract.svm.domaindatabase.WordList;
 
 import utilily.extract.svm.HeaderReader;
@@ -81,6 +82,14 @@ public class Main {
 		
 		System.out.println("Counted Header : " + countHeader);
 		
+		//test database
+		DatabaseDic data = new DatabaseDic(headers);
+		Word word = new Word();
+		word.setContent("al");
+		ArrayList<Integer> result = data.search(word);
+		for(int i = 0; i < result.size(); i++) {
+			System.out.print(result.get(i) + "    ");
+		}
 		/*for (int i = 0; i < 500; i++) {
 			//Line Affiliation
 			ArrayList<Line> linesAffiliation = headers[i].getLineWithLabel(LabelConst.AFFILIATION);
