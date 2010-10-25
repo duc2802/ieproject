@@ -12,6 +12,7 @@ import utilily.extract.svm.LabelConst;
 
 import core.extract.svm.Header;
 import core.extract.svm.Line;
+import core.extract.svm.Word;
 
 /**
  * @author DuyVo
@@ -26,20 +27,19 @@ public class WordList {
 		name = 0;
 	}
 	
-	WordList(Header[] headers, int labelConst, int numberOfWord) {
+	WordList(Header[] headers, int nameOfWordList, int labelPattern, int numberOfWord) {
 		wordList = new ArrayList<WordDic>();
-		name = labelConst;
+		name = nameOfWordList;
 		StringBuilder wordListString = new StringBuilder();
 				
 		for (int i = 0; i < 500; i++) {
-			ArrayList<Line> linesWordList = headers[i].getLineWithLabel(labelConst);
+			ArrayList<Line> linesWordList = headers[i].getLineWithLabel(labelPattern);
 			
 			for (Line line : linesWordList) {
 				wordListString.append(" ");
 				wordListString.append(line.getContent());
 			}			
 		}
-		System.out.println(headers.length);
 		// Statistic word list
 		
 		String wordListRemoved = wordListString.toString().replaceAll(",", "");
@@ -95,9 +95,9 @@ public class WordList {
 		}
 	}
 	
-	public boolean search(String word) {
+	public boolean search(Word word) {
 		for (int i = 0; i < wordList.size(); i++) {
-			if(wordList.get(i).getContent().equals(word)) {
+			if(wordList.get(i).getContent().equals(word.getContent())) {
 				return true;
 			}					
 		}
