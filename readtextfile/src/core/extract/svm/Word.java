@@ -15,7 +15,7 @@ public class Word {
 	private boolean isURL;
 	private boolean isSingleCap;
 	private boolean isPostCode;
-	private boolean isAbtract;
+	private boolean isAbstract;
 	private boolean isKeyword;
 	private boolean isIntro;
 	private boolean isPhone;
@@ -40,7 +40,7 @@ public class Word {
 		isURL = false;
 		isSingleCap = false;
 		isPostCode = false;
-		isAbtract = false;
+		isAbstract = false;
 		isKeyword = false;
 		isIntro = false;
 		isPhone = false;
@@ -62,13 +62,53 @@ public class Word {
 	}
 	
 	public void calculateWordSpecificFeature(DatabaseDic databaseDic){
-		ArrayList<Integer> result = databaseDic.search(this.content);
-		if(result != null){
-	
+		ArrayList<Integer> result = databaseDic.search(this.content.toLowerCase());
+		if(result.size() == 0){
+			this.setNonDicWord(true);
 		}
 		else {
 			for (Integer integer : result) {
-				
+				this.setDicWord(true);
+				switch (integer) {
+				case 1:
+					this.setPostCode(true);
+					break;
+				case 2:
+					this.setAbstract(true);
+					break;
+				case 3:
+					this.setKeyword(true);
+					break;
+				case 4:
+					this.setPhone(true);
+					break;
+				case 5:
+					this.setMonth(true);
+					break;
+				case 6:
+					this.setAddr(true);
+					break;
+				case 7:
+					this.setCity(true);
+					break;
+				case 8:
+					this.setState(true);
+					break;
+				case 9:
+					this.setCountry(true);
+					break;
+				case 10:
+					this.setName(true);
+					break;
+				case 11:
+					this.setAff(true);
+					break;
+				case 12:
+					this.setNoteNum(true);
+					break;
+				default:
+					break;
+				}
 			}			
 		}
 	}	
@@ -136,11 +176,11 @@ public class Word {
 	}
 
 	public boolean isAbtract() {
-		return isAbtract;
+		return isAbstract;
 	}
 
-	public void setAbtract(boolean isAbtract) {
-		this.isAbtract = isAbtract;
+	public void setAbstract(boolean isAbstract) {
+		this.isAbstract = isAbstract;
 	}
 
 	public boolean isKeyword() {

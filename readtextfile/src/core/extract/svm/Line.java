@@ -26,6 +26,7 @@ public class Line {
 	public void calculateWordSpecific(DatabaseDic data){
 		for (Word w : words) {
 			w.setOrthogrophicFeature(WordOrthogrophic.checkOrthographicOfWord(w));
+			w.calculateWordSpecificFeature(data);
 		}
 	}
 	
@@ -56,7 +57,7 @@ public class Line {
 	
 	public ArrayList<Word> toWord(String lineContent){
 		ArrayList<Word> wordTemp = new ArrayList<Word>();		
-		String[] splitSpace = lineContent.split(" ");
+		String[] splitSpace = lineContent.replaceAll(",", "").split(" ");		
 		int countWordInLine = 0;
 		for (String string1 : splitSpace) {
 			if(!string1.equals("")){
