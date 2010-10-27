@@ -17,7 +17,7 @@ import core.extract.svm.Word;
  *
  */
 public class DatabaseDic {
-	public static int NUMBER_WORD_IN_WORDLIST = 10;
+	public static int NUMBER_WORD_IN_WORDLIST = 20;
 	ArrayList<WordList> wordLists = null;
 	ArrayList<Dictionary> dics = null;
 	
@@ -64,7 +64,7 @@ public class DatabaseDic {
 		
 		Dictionary countryDic = new Dictionary(LabelWord.COUNTRY);
 		countryDic.addData("country_name.txt");
-		dics.add(countryDic);
+		dics.add(countryDic);		
 	}
 	
 	public void printOut() {

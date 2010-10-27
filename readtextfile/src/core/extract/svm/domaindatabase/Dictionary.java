@@ -42,12 +42,11 @@ public class Dictionary {
 					String[] words = line.split(" ");
 					for(String word : words) {						 
 						if(word.hashCode() != 0){ // remove line empty
-							System.out.println(word.toLowerCase());
 							dict.add(word.toLowerCase());
 						}
 					}
 				} else {
-					dict.add(line);
+					dict.add(line.toLowerCase());
 				}
 			}	
 		} catch (Exception e) {
@@ -62,8 +61,8 @@ public class Dictionary {
 	}
 	
 	public boolean search(String word) {
-		for(int i = 0; i < dict.size(); i++) {
-			if(dict.get(i).equals(word)) {
+		for(int i = 0; i < dict.size(); i++) {			
+			if(dict.get(i).toString().equals(word.toLowerCase())) {				
 				return true;
 			}
 		}
