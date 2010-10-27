@@ -3,6 +3,7 @@ package core.extract.svm;
 import java.util.ArrayList;
 
 import core.extract.svm.cluster.DomainDatabase;
+import core.extract.svm.cluster.WordOrthogrophic;
 import core.extract.svm.domaindatabase.DatabaseDic;
 
 public class Word {
@@ -31,7 +32,20 @@ public class Word {
 	private boolean isCountry;
 	private boolean isName;
 	private boolean isCap1DicWord;
+	private boolean isCap1NonDicWord;
 	private boolean isDicWord;
+	public boolean isCap1NonDicWord() {
+		return isCap1NonDicWord;
+	}
+
+	public void setCap1NonDicWord(boolean isCap1NonDicWord) {
+		this.isCap1NonDicWord = isCap1NonDicWord;
+	}
+
+	public boolean isAbstract() {
+		return isAbstract;
+	}
+
 	private boolean isNonDicWord;
 	private boolean isDig;
 	
@@ -56,12 +70,14 @@ public class Word {
 		isCountry = false;
 		isName = false;
 		isCap1DicWord = false;
+		isCap1NonDicWord = false;
 		isDicWord = false;
 		isNonDicWord = false;
 		isDig = false;
 	}
 	
 	public void calculateWordSpecificFeature(DatabaseDic databaseDic){
+		//Look up to DB domain.
 		ArrayList<Integer> result = databaseDic.search(this.content.toLowerCase());
 		if(result.size() == 0){
 			this.setNonDicWord(true);
@@ -110,6 +126,20 @@ public class Word {
 					break;
 				}
 			}			
+		}
+		
+		//check abstract :
+		
+		// calculate Orthographic of the word.
+		this.setOrthogrophicFeature(WordOrthogrophic.checkOrthographicOfWord(this));
+		//is Digit...
+		for (Integer integer : orthogrophicFeature) {
+			if(integer == 3) this.setDig(true);
+			if(integer == 2) this.setEmail(true);
+			if(integer == 1 && this.isName == true) this.setName(true);			
+			else this.setName(false);
+			if(integer == 1 && this.isDicWord() == true) this.setCap1DicWord(true);
+			if(integer == 1 && this.isNonDicWord == true) this.setCap1NonDicWord(true);
 		}
 	}	
 	

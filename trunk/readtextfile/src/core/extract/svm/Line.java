@@ -23,9 +23,44 @@ public class Line {
 		lineSpecificFeature = new LineSpecificFeature();		
 	}
 	
+	/**
+	 * 
+	 * 
+	 * @Author : Huynh Minh Duc
+	 * @Comment :
+	 */
+	public void genarateVectorFeature(){
+		double totalWordsInLine = this.getFeature().getCSentenceLength();
+		int countDictWordInLine = 0;
+		int countNonDictWordInLine = 0;
+		int countCap1DictWordInLine = 0;
+		int countCap1NonDictWordInLine = 0;
+		int countDigit = 0;
+		int countAffilation = 0;
+		for (Word word : this.words) {
+			if(word.isDicWord()) countDictWordInLine++;	
+			if(word.isNonDicWord()) countNonDictWordInLine++;
+			if(word.isCap1DicWord()) countCap1DictWordInLine++;
+			if(word.isCap1NonDicWord()) countCap1NonDictWordInLine++;
+			if(word.isDig()) countDigit++;
+			if(word.isAff()) countAffilation++;
+		}
+		this.lineSpecificFeature.setCDictWordNumPer((double)countDictWordInLine / totalWordsInLine * 100);
+		this.lineSpecificFeature.setCNonDictWordNumPer((double)countNonDictWordInLine / totalWordsInLine * 100);
+		this.lineSpecificFeature.setCCap1DictWordNumPer((double)countCap1DictWordInLine / totalWordsInLine * 100);
+		this.lineSpecificFeature.setCCap1NonDictWordNumPer((double)countCap1NonDictWordInLine / totalWordsInLine * 100);
+		this.lineSpecificFeature.setCDigitNumPer((double)countDigit / totalWordsInLine * 100);
+		this.lineSpecificFeature.setCAffiNumPer((double)countAffilation / totalWordsInLine * 100);
+	}
+	
+	/**
+	 * 
+	 * @param data
+	 * @Author : Huynh Minh Duc
+	 * @Comment :
+	 */
 	public void calculateWordSpecific(DatabaseDic data){
 		for (Word w : words) {
-			w.setOrthogrophicFeature(WordOrthogrophic.checkOrthographicOfWord(w));
 			w.calculateWordSpecificFeature(data);
 		}
 	}
@@ -56,8 +91,10 @@ public class Line {
 	}
 	
 	public ArrayList<Word> toWord(String lineContent){
-		ArrayList<Word> wordTemp = new ArrayList<Word>();		
-		String[] splitSpace = lineContent.replaceAll(",", "").split(" ");		
+		ArrayList<Word> wordTemp = new ArrayList<Word>();
+		lineContent = lineContent.replaceAll("\\-", " ");
+		lineContent = lineContent.replaceAll("\\.", "");
+		String[] splitSpace = lineContent.replaceAll(",", "").split(" ");				
 		int countWordInLine = 0;
 		for (String string1 : splitSpace) {
 			if(!string1.equals("")){
