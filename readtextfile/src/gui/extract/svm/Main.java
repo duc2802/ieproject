@@ -31,11 +31,12 @@ public class Main {
 		
 		DatabaseDic data = new DatabaseDic(headers);
 		
-		int i = 1;
-		int label = LabelConst.AFFILIATION;
+		int i = 0;
+		int label = LabelConst.TITLE;
 		int line = 0;
 		headers[i].getLineWithLabel(label).get(line).calculateWordSpecific(data);
 		headers[i].getLineWithLabel(label).get(line).genarateVectorFeature();
+		headers[i].getLineWithLabel(label).get(line).normalizationVector();
 		System.out.println("Line : " + headers[i].getLineWithLabel(label).get(line).getContent());
 		System.out.println("      CLengthSence : " + headers[i].getLineWithLabel(label).get(line).getFeature().getCSentenceLength());
 		System.out.println("      CLinePosition : " + headers[i].getLineWithLabel(label).get(line).getFeature().getCLinePosition());
