@@ -29,6 +29,24 @@ public class LineSpecificFeature {
 		
 	}
 	
+	public double maxValue(){
+		double max = this.cSentenceLength;
+		if(max < this.cAddNumPer) max = this.cAddNumPer;
+		if(max < this.cAffiNumPer) max = this.cAffiNumPer;
+		if(max < this.cCap1DictWordNumPer) max = this.cCap1DictWordNumPer;
+		if(max < this.cCap1NonDictWordNumPer) max = this.cCap1NonDictWordNumPer;
+		if(max < this.cDateNumPer) max = this.cDateNumPer;
+		if(max < this.cDegreeNumPer) max = this.cDegreeNumPer;
+		if(max < this.cDictWordNumPer) max = this.cDictWordNumPer;
+		if(max < this.cDigitNumPer) max = this.cDigitNumPer;
+		if(max < this.cLinePosition) max = this.cLinePosition;
+		if(max < this.cNonDictWordNumPer) max = this.cNonDictWordNumPer;
+		if(max < this.cNoteNumPer) max = this.cNoteNumPer;
+		if(max < this.cPageNumPer) max = this.cPageNumPer;
+		if(max < this.cPhoneNumPer) max = this.cPhoneNumPer;
+		if(max < this.cPubNumPer) max = this.cPubNumPer;
+		return max;
+	}
 	
 	public double getCAffiNumPer() {
 		return cAffiNumPer;
