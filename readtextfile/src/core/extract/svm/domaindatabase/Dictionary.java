@@ -6,6 +6,7 @@
 package core.extract.svm.domaindatabase;
 
 import java.util.ArrayList;
+import java.util.Enumeration;
 import java.util.Hashtable;
 
 import java.io.BufferedReader;
@@ -43,14 +44,13 @@ public class Dictionary {
 				if(line.indexOf(" ") != -1) {					
 					String[] words = line.split(" ");
 					for(String word : words) {
-						i++;
 						if(word.hashCode() != 0){ // remove line empty
-							dict.put(Integer.valueOf(i), word.toLowerCase());
+							dict.put(word.toLowerCase().hashCode(), word.toLowerCase());
 						}
 					}
 				} else {
 					i++;
-					dict.put(Integer.valueOf(i), line.toLowerCase());
+					dict.put(line.toLowerCase().hashCode(), line.toLowerCase());
 				}
 			}	
 		} catch (Exception e) {
@@ -59,13 +59,14 @@ public class Dictionary {
 	}
 	
 	public void printOut() {
-		for(int i = 0; i < dict.size(); i++) {
-			System.out.println(dict.get(i));
-		}
+		Enumeration<String> e = dict.elements();
+        while( e. hasMoreElements() ){   
+            System.out.println(e.nextElement());
+        }
 	}
 	
 	public boolean search(String word) {
-		return this.dict.contains(word.toString().toLowerCase());		
+		return this.dict.containsKey(word.toLowerCase().hashCode());		
 	}
 	
 	public Hashtable<Integer, String> getWords() {
