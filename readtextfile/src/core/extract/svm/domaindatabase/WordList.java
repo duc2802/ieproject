@@ -6,6 +6,7 @@
 package core.extract.svm.domaindatabase;
 
 import java.util.ArrayList;
+import java.util.Hashtable;
 
 import utilily.extract.svm.HeaderReader;
 import utilily.extract.svm.LabelConst;
@@ -19,16 +20,16 @@ import core.extract.svm.Word;
  *
  */
 public class WordList {
-	ArrayList<WordDic> wordList = null;
+	Hashtable<Integer, String> wordList = null;
 	int name;
 	
 	WordList() {	
-		wordList = new ArrayList<WordDic>();
+		wordList = new Hashtable<Integer, String>();
 		name = 0;
 	}
 	
 	WordList(Header[] headers, int nameOfWordList, int labelPattern, int numberOfWord) {
-		wordList = new ArrayList<WordDic>();
+		wordList = new Hashtable<Integer, String>();
 		name = nameOfWordList;
 		StringBuilder wordListString = new StringBuilder();
 				
@@ -91,30 +92,25 @@ public class WordList {
 		
 		// add number of word into WordList
 		for (int i = 0; i < numberOfWord; i++) {
-			wordList.add(tempWordList.get(i));
+			wordList.put(Integer.valueOf(i),tempWordList.get(i).getContent());
 		}
 	}
 	
 	public boolean search(String word) {
-		for (int i = 0; i < wordList.size(); i++) {
-			if(wordList.get(i).getContent().equals(word)) {
-				return true;
-			}					
-		}
-		return false;
+		return this.wordList.contains(word.toString());
 	}
 	
 	public void printOut() {
 		for (int i = 0; i < wordList.size(); i++) {
-			System.out.println(wordList.get(i).getContent().toString() + ": " + wordList.get(i).getDfValue());
+			System.out.println(wordList.get(i).toString());
 		}
 	}
 
-	public ArrayList<WordDic> getwordList() {
+	public Hashtable<Integer, String> getwordList() {
 		return wordList;
 	}
 
-	public void setwordList(ArrayList<WordDic> wordList) {
+	public void setwordList(Hashtable<Integer, String> wordList) {
 		this.wordList = wordList;
 	}
 
