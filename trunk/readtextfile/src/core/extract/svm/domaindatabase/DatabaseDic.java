@@ -25,7 +25,7 @@ public class DatabaseDic {
 		wordLists = new ArrayList<WordList>();
 		
 		WordList wordListAffiliation = new WordList(headers, LabelWord.AFFILIATION, LabelConst.AFFILIATION, NUMBER_WORD_IN_WORDLIST);
-		wordLists.add(wordListAffiliation);
+		wordLists.add(wordListAffiliation);		
 		
 		WordList wordListAddress = new WordList(headers, LabelWord.ADDRESS, LabelConst.ADDRESS, NUMBER_WORD_IN_WORDLIST);
 		wordLists.add(wordListAddress);
@@ -47,7 +47,7 @@ public class DatabaseDic {
 		
 		Dictionary postCodeDic = new Dictionary(LabelWord.POSTCODE);
 		postCodeDic.addData("postcode.txt");
-		dics.add(postCodeDic);
+		dics.add(postCodeDic);		
 		
 		Dictionary monthDic = new Dictionary(LabelWord.MONTH);
 		monthDic.addData("month.txt");

@@ -6,6 +6,7 @@
 package core.extract.svm.domaindatabase;
 
 import java.util.ArrayList;
+import java.util.Hashtable;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -16,37 +17,40 @@ import core.extract.svm.*;
  *
  */
 public class Dictionary {
-	ArrayList<String> dict = null;
+	Hashtable<Integer, String> dict = null;
 	int name;
 	
 	public Dictionary() {
-		dict = new ArrayList<String>();
+		dict = new Hashtable<Integer, String>();
 		name = 0;
 	}
 	
 	public Dictionary(int labelConst) {
-		this.dict = new ArrayList<String>();
+		this.dict = new Hashtable<Integer, String>();
 		this.name = labelConst;
 	}
 	
 	public void addData(String pathFile) {
-		dict = new ArrayList<String>();
+		dict = new Hashtable<Integer, String>();
 		File file = new File(pathFile);
 		
 		try {
 			BufferedReader bufferreader = new BufferedReader(new FileReader(file));
 			String line;
+			int i = -1;
 			
 			while((line = bufferreader.readLine()) != null) {
-				if(line.indexOf(" ") != -1) {
+				if(line.indexOf(" ") != -1) {					
 					String[] words = line.split(" ");
-					for(String word : words) {						 
+					for(String word : words) {
+						i++;
 						if(word.hashCode() != 0){ // remove line empty
-							dict.add(word.toLowerCase());
+							dict.put(Integer.valueOf(i), word.toLowerCase());
 						}
 					}
 				} else {
-					dict.add(line.toLowerCase());
+					i++;
+					dict.put(Integer.valueOf(i), line.toLowerCase());
 				}
 			}	
 		} catch (Exception e) {
@@ -61,19 +65,14 @@ public class Dictionary {
 	}
 	
 	public boolean search(String word) {
-		for(int i = 0; i < dict.size(); i++) {			
-			if(dict.get(i).toString().equals(word.toLowerCase())) {				
-				return true;
-			}
-		}
-		return false;
+		return this.dict.contains(word.toString().toLowerCase());		
 	}
 	
-	public ArrayList<String> getWords() {
+	public Hashtable<Integer, String> getWords() {
 		return dict;
 	}
 
-	public void setWords(ArrayList<String> dict) {
+	public void setWords(Hashtable<Integer, String> dict) {
 		this.dict = dict;
 	}
 
