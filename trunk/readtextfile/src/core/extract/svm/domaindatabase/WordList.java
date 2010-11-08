@@ -6,6 +6,7 @@
 package core.extract.svm.domaindatabase;
 
 import java.util.ArrayList;
+import java.util.Enumeration;
 import java.util.Hashtable;
 
 import utilily.extract.svm.HeaderReader;
@@ -92,18 +93,19 @@ public class WordList {
 		
 		// add number of word into WordList
 		for (int i = 0; i < numberOfWord; i++) {
-			wordList.put(Integer.valueOf(i),tempWordList.get(i).getContent());
+			wordList.put(tempWordList.get(i).getContent().hashCode(),tempWordList.get(i).getContent());
 		}
 	}
 	
 	public boolean search(String word) {
-		return this.wordList.contains(word.toString());
+		return this.wordList.containsKey(word.toLowerCase().hashCode());
 	}
 	
 	public void printOut() {
-		for (int i = 0; i < wordList.size(); i++) {
-			System.out.println(wordList.get(i).toString());
-		}
+		Enumeration<String> e = wordList.elements();
+        while( e. hasMoreElements() ){   
+            System.out.println(e.nextElement());
+        }
 	}
 
 	public Hashtable<Integer, String> getwordList() {
