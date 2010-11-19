@@ -1,11 +1,16 @@
 package utilily.extract.svm;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.Writer;
 import java.util.ArrayList;
 
-public class HeaderReader {
+public class HeaderReaderWriter {
 	
 	/**
 	 * 
@@ -33,7 +38,36 @@ public class HeaderReader {
 			return null;
 		}		
 	}
-	
+
+
+	public static void write(File aFile, String aContents) throws FileNotFoundException, IOException {
+		
+		if (aFile == null) {
+			throw new IllegalArgumentException("File should not be null.");
+		}
+		if (!aFile.exists()) {
+			throw new FileNotFoundException ("File does not exist: " + aFile);
+		}
+		if (!aFile.isFile()) {
+			throw new IllegalArgumentException("Should not be a directory: " + aFile);
+		}
+		if (!aFile.canWrite()) {
+			throw new IllegalArgumentException("File cannot be written: " + aFile);
+		}
+
+		//use buffering
+		Writer output = new BufferedWriter(new FileWriter(aFile));
+		try {
+			//FileWriter always assumes default encoding is OK!
+			output.write( aContents );
+		}
+		finally {
+			output.close();
+		}
+	}
+
+
+
 	/**
 	 * 
 	 * @param urlFile
