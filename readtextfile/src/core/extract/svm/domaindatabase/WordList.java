@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.Hashtable;
 
-import utilily.extract.svm.HeaderReader;
+import utilily.extract.svm.HeaderReaderWriter;
 import utilily.extract.svm.LabelConst;
 
 import core.extract.svm.Header;
@@ -50,7 +50,7 @@ public class WordList {
 		
 		// Stop List Word
 		String pathStopWordListFile = "StopWordList.txt";	
-		ArrayList<String> stopWordList = HeaderReader.readTextFile(pathStopWordListFile);
+		ArrayList<String> stopWordList = HeaderReaderWriter.readTextFile(pathStopWordListFile);
 		
 		for (int i = 0; i < Tokens.length; i++) {
 			if(!Tokens[i].trim().equals("")){
