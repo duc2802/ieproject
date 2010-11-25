@@ -51,7 +51,8 @@ public class SVMTrain {
 		+"-v n : n-fold cross validation mode\n"
 		+"-q : quiet mode (no outputs)\n"
 		);
-		System.exit(1);
+ 		System.exit(1);
+		
 	}
 
 	private void do_cross_validation()
@@ -110,6 +111,7 @@ public class SVMTrain {
 		}
 		else
 		{
+			System.out.println("Huynh minh duc");
 			model = svm.svm_train(prob,param);
 			svm.svm_save_model(model_file_name,model);
 		}
@@ -141,7 +143,7 @@ public class SVMTrain {
 	{
 		int i;
 		svm_print_interface print_func = null;	// default printing to stdout
-
+		
 		param = new svm_parameter();
 		// default values
 		param.svm_type = svm_parameter.C_SVC;
@@ -162,7 +164,7 @@ public class SVMTrain {
 		cross_validation = 0;
 
 		// parse options
-		for(i=0;i<argv.length;i++)
+		/*for(i=0;i<argv.length;i++)
 		{
 			if(argv[i].charAt(0) != '-') break;
 			if(++i>=argv.length)
@@ -214,8 +216,8 @@ public class SVMTrain {
 					nr_fold = atoi(argv[i]);
 					if(nr_fold < 2)
 					{
-						System.err.print("n-fold cross validation: n must >= 2\n");
-						exit_with_help();
+						System.err.print("n-fold cross validation: n must >= 2\n");											
+						exit_with_help();						
 					}
 					break;
 				case 'w':
@@ -239,19 +241,19 @@ public class SVMTrain {
 					System.err.print("Unknown option: " + argv[i-1] + "\n");
 					exit_with_help();
 			}
-		}
+		}*/
 
 		svm.svm_set_print_string_function(print_func);
 
 		// determine filenames
-
+/*
 		if(i>=argv.length)
 			exit_with_help();
 
 		input_file_name = argv[i];
 
 		if(i<argv.length-1)
-			model_file_name = argv[i+1];
+			model_file_name = "train.model";//argv[i+1];
 		else
 		{
 			int p = argv[i].lastIndexOf('/');
@@ -259,8 +261,12 @@ public class SVMTrain {
 			model_file_name = argv[i].substring(p)+".model";
 		}
 	}
-
+	
+*/
+	input_file_name = "train";
+	model_file_name = "train.model";//argv[i+1];
 	// read in a problem (in svmlight format)
+	}
 
 	private void read_problem() throws IOException
 	{
