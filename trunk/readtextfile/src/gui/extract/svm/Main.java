@@ -37,7 +37,7 @@ public class Main {
 		StringBuffer trainContent = new StringBuffer();
 		
 		for(int i = 0; i < 500; i++){
-			ArrayList<Line> line = headers[i].getLineWithLabel(LabelConst.ABSTRACT);
+			ArrayList<Line> line = headers[i].getLine();
 			for(int j = 0; j < line.size(); j++){
 				line.get(j).calculateWordSpecific(data);
 				line.get(j).genarateVectorFeature();
@@ -76,52 +76,13 @@ public class Main {
 				System.out.println(aLine.toString());
 				trainContent.append(aLine.toString());				
 			}
-		}
-		
-		File trainFile = new File("train.txt");
-		
+		}		
+		File trainFile = new File("out//train.my_scale.txt");		
 		try {
 			HeaderReaderWriter.write(trainFile, trainContent.toString());
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 			System.out.println("Error in write train file process");
 		}
-		
-		
-		/*int i = 0;
-		int label = LabelConst.TITLE;
-		int line = 0;
-		headers[i].getLineWithLabel(label).get(line).calculateWordSpecific(data);
-		headers[i].getLineWithLabel(label).get(line).genarateVectorFeature();
-		headers[i].getLineWithLabel(label).get(line).normalizationVector();
-		System.out.println("Line : " + headers[i].getLineWithLabel(label).get(line).getContent());
-		System.out.println("      CLengthSence : " + headers[i].getLineWithLabel(label).get(line).getFeature().getCSentenceLength());
-		System.out.println("      CLinePosition : " + headers[i].getLineWithLabel(label).get(line).getFeature().getCLinePosition());
-		System.out.println("      CDictWordNumPer : " + headers[i].getLineWithLabel(label).get(line).getFeature().getCDictWordNumPer());
-		System.out.println("      CNonDictWordNumPer : " + headers[i].getLineWithLabel(label).get(line).getFeature().getCNonDictWordNumPer());
-		System.out.println("      CCap1DictWordNumPer : " + headers[i].getLineWithLabel(label).get(line).getFeature().getCCap1DictWordNumPer());
-		System.out.println("      CCap1NonDictWordNumPer : " + headers[i].getLineWithLabel(label).get(line).getFeature().getCCap1NonDictWordNumPer());
-		System.out.println("      CDigitNumPer : " + headers[i].getLineWithLabel(label).get(line).getFeature().getCDigitNumPer());
-		System.out.println("      CAffiNumPer : " + headers[i].getLineWithLabel(label).get(line).getFeature().getCAffiNumPer());
-		*/
-		/*ArrayList<Word> words = headers[i].getLineWithLabel(label).get(line).getWords();
-		for (Word word : words) {
-			System.out.println("=======================================");
-			System.out.println("Content of : " + word.getContent());
-			System.out.println("IsEmail : " + word.isEmail());
-			System.out.println("IsSingleCap : " + word.isSingleCap());
-			System.out.println("IsPostcode : " + word.isPostCode());
-			System.out.println("IsAbstract : " + word.isAbtract());
-			System.out.println("IsKeyword : " + word.isKeyword());
-			System.out.println("IsIntro	: " + word.isIntro());
-			System.out.println("IsAff : " + word.isAff());
-			System.out.println("IsName : " + word.isName());
-			System.out.println("IsDicWord : " + word.isDicWord());
-			System.out.println("IsState : " + word.isState());
-			System.out.println("IsMonth : " + word.isMonth());
-			System.out.println("IsDigit : " + word.isDig());
-			System.out.println("IsCap1DicWord : " + word.isCap1DicWord());
-			System.out.println("IsCap1NonDicWord : " + word.isCap1NonDicWord());
-		}		*/
 	}
 }
