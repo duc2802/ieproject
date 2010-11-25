@@ -4,7 +4,7 @@ import libsvm.*;
 import java.io.*;
 import java.util.*;
 
-class SVMTest {
+public class SVMTest {
 	private static double atof(String s)
 	{
 		return Double.valueOf(s).doubleValue();
@@ -108,14 +108,14 @@ class SVMTest {
 		System.exit(1);
 	}
 
-	public static void main(String argv[]) throws IOException
+	public void run(String inputTestFile, String modelFile, String resultOutput) throws IOException
 	{
 		int predict_probability=0;
 		try 
 		{
-			BufferedReader input = new BufferedReader(new FileReader("test1.txt"));
-			DataOutputStream output = new DataOutputStream(new BufferedOutputStream(new FileOutputStream("out\\result.txt")));
-			svm_model model = svm.svm_load_model("train.model");
+			BufferedReader input = new BufferedReader(new FileReader(inputTestFile));
+			DataOutputStream output = new DataOutputStream(new BufferedOutputStream(new FileOutputStream(resultOutput)));
+			svm_model model = svm.svm_load_model(modelFile);
 			if(predict_probability == 1)
 			{
 				if(svm.svm_check_probability_model(model)==0)
@@ -144,4 +144,13 @@ class SVMTest {
 			exit_with_help();
 		}
 	}
+	public static void main(String argv[]) throws IOException
+	{
+		SVMTest testSVM = new SVMTest();
+		String pathTestScaleFile = "out//test.scale.txt";
+		String modelFileName = "out//train.model";
+		String resultFileName = "out//result.txt";
+		testSVM.run(pathTestScaleFile, modelFileName, resultFileName);
+	}
+
 }
