@@ -5,7 +5,11 @@ import java.io.*;
 import java.util.*;
 import java.text.DecimalFormat;
 
-class SVMScale
+import javax.sound.sampled.LineListener;
+
+import utilily.extract.svm.HeaderReaderWriter;
+
+public class SVMScale
 {
 	private String line = null;
 	private double lower = -1.0;
@@ -41,7 +45,7 @@ class SVMScale
 		return new BufferedReader(new FileReader(filename));
 	}
 
-	private void output_target(double value)
+	private String output_target(double value)
 	{
 		if(y_scaling)
 		{
@@ -55,13 +59,14 @@ class SVMScale
 		}
 
 		System.out.print(value + " ");
+		return (((int)value) + " ");
 	}
 
-	private void output(int index, double value)
+	private String output(int index, double value)
 	{
 		/* skip single-valued attribute */
-		if(feature_max[index] == feature_min[index])
-			return;
+		if(feature_max[index] == feature_min[index]) return null;
+		
 
 		if(value == feature_min[index])
 			value = lower;
@@ -76,7 +81,9 @@ class SVMScale
 		{
 			System.out.print(index + ":" + value + " ");
 			new_num_nonzeros++;
+			return index + ":" + value + " "; 
 		}
+		return null;
 	}
 
 	private String readline(BufferedReader fp) throws IOException
@@ -85,16 +92,16 @@ class SVMScale
 		return line;
 	}
 
-	private void run(String []argv) throws IOException
+	public String run(String command) throws IOException
 	{			
-		//String command = "-l 0 -u 1 -s range out//train.txt";
+		//String command = "-l 0 -u 1 -s range out//test.txt";
 		//String command = "-r range out//train.txt";
-		//argv = command.split(" ");
+		String[] argv = command.split(" ");
 		int i,index;
 		BufferedReader fp = null, fp_restore = null;
-		String save_filename = "range";
+		String save_filename = null;
 		String restore_filename = null;
-		String data_filename = "out//train.txt";
+		String data_filename = null;
 
 
 		for(i=0;i<argv.length;i++)
@@ -118,8 +125,6 @@ class SVMScale
 					  exit_with_help();
 			}
 		}
-		
-		
 		
 		if(!(upper > lower) || (y_scaling && !(y_upper > y_lower)))
 		{
@@ -316,26 +321,32 @@ class SVMScale
 			fp_save.close();
 		}
 
-		/* pass 3: scale */
+		/* pass 3: scale */		
+		StringBuffer contentScale = new StringBuffer();
 		while(readline(fp) != null)
 		{
+			StringBuffer lineBF = new StringBuffer();			
 			int next_index = 1;
 			double target;
 			double value;
 
 			StringTokenizer st = new StringTokenizer(line," \t\n\r\f:");
 			target = Double.parseDouble(st.nextToken());
-			output_target(target);
+			lineBF.append(output_target(target));
 			while(st.hasMoreElements())
 			{
 				index = Integer.parseInt(st.nextToken());
 				value = Double.parseDouble(st.nextToken());
 				for (i = next_index; i<index; i++)
 					output(i, 0);
-				output(index, value);
+				String l = output(index, value);
+				if(l != null){
+					lineBF.append(l);
+				}
 				next_index = index + 1;
 			}
-
+			contentScale.append(lineBF);
+			contentScale.append("\n");
 			for(i=next_index;i<= max_index;i++)
 				output(i, 0);
 			System.out.print("\n");
@@ -344,14 +355,17 @@ class SVMScale
 			System.err.print(
 			 "Warning: original #nonzeros " + num_nonzeros+"\n"
 			+"         new      #nonzeros " + new_num_nonzeros+"\n"
-			+"Use -l 0 if many original feature values are zeros\n");
-
+			+"Use -l 0 if many original feature values are zeros\n");		
+		
 		fp.close();
+		
+		return contentScale.toString();
 	}
 
 	public static void main(String argv[]) throws IOException
 	{
 		SVMScale s = new SVMScale();
-		s.run(argv);
+		String command = "-l 0 -u 1 -s range out//test.txt";
+		s.run(command);
 	}
 }
