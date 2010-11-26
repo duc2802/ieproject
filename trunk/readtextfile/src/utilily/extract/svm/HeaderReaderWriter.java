@@ -65,9 +65,7 @@ public class HeaderReaderWriter {
 			output.close();
 		}
 	}
-
-
-
+	
 	/**
 	 * 
 	 * @param urlFile
