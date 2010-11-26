@@ -46,7 +46,7 @@ public class Main {
 
 		StringBuffer trainContent = new StringBuffer();
 		
-		for(int i = 0; i < 500; i++){
+		for(int i = 0; i < 600; i++){
 			ArrayList<Line> line = headers[i].getLine();
 			for(int j = 0; j < line.size(); j++){
 				line.get(j).calculateWordSpecific(data);
@@ -97,7 +97,7 @@ public class Main {
 		
 		StringBuffer testContent = new StringBuffer();
 		
-		for(int i = 501; i < headers.length; i++){
+		for(int i = 601; i < headers.length; i++){
 			ArrayList<Line> line = headers[i].getLine();
 			for(int j = 0; j < line.size(); j++){
 				line.get(j).calculateWordSpecific(data);
