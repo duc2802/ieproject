@@ -12,6 +12,7 @@ public class Line {
 	private int label; //1..15 : constrain in a other file.
 	private ArrayList<Word> words;
 	private LineSpecificFeature lineSpecificFeature;
+	private ContextSpecificFeature contextSpecificFeature;
 	
 	/**
 	 * 
@@ -58,6 +59,7 @@ public class Line {
 			if(word.isNoteNum()) countNote++;
 			if(word.isPhone()) countPhone++;
 		}
+		
 		this.lineSpecificFeature.setCDictWordNumPer((double)countDictWordInLine / totalWordsInLine * 100);
 		this.lineSpecificFeature.setCNonDictWordNumPer((double)countNonDictWordInLine / totalWordsInLine * 100);
 		this.lineSpecificFeature.setCCap1DictWordNumPer((double)countCap1DictWordInLine / totalWordsInLine * 100);
