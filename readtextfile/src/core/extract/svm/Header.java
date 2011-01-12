@@ -28,11 +28,6 @@ public class Header {
 		String contentHeaderNonTag = StringProcess.removeAllTagHeader(headerText);		
 		String[] linesAndNumber = StringProcess.convertHeaderTextToLines(contentHeaderNonTag);
 		
-		//for (int i = 0; i < linesAndNumber.length; i++) {
-		//	System.out.println((i + 1) + " : " + linesAndNumber[i].trim());			
-		//}
-		//System.out.println("===============================");
-		
 		String textTag = LineProcessUtilities.getSubString(headerText, TagConst.TITLE_TAG_START, TagConst.TITLE_TAG_END);
 		if(textTag != null){
 			ArrayList<Line> lineTemp = LineProcessUtilities.getLineFromContentTag(textTag, LabelConst.TITLE);
@@ -228,6 +223,8 @@ public class Header {
 			}
 		}
 	}
+	
+	
 	
 	/**
 	 * 
