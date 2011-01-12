@@ -5,6 +5,8 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import core.extract.svm.ContextSpecificFeature;
+import core.extract.svm.FeatureContextGenerator;
 import core.extract.svm.FeatureIndependentGenerator;
 import core.extract.svm.Header;
 import core.extract.svm.Line;
@@ -36,13 +38,24 @@ public class Main {
 		FeatureIndependentGenerator featureIndependentGenerator = new FeatureIndependentGenerator();
 		try {
 			headers = featureIndependentGenerator.run();
+			
+			FeatureContextGenerator featureContextGenerator = new FeatureContextGenerator(headers);
+			ContextSpecificFeature contextSpecificFeature = featureContextGenerator.calculateContextFeature(headers[0], headers[0].getLine().get(6));
+			
+			for (int i = 0; i < 5; i++) {
+				System.out.println("next : " + contextSpecificFeature.getNextLineLable().get(i));
+				System.out.println("previous : " + contextSpecificFeature.getPreviousLineLable().get(i));
+			}			
+			System.out.println();
 			System.gc();
 		} catch (Exception e) {
 			// TODO: handle exception
 			System.out.println("Error calculate independent vector");
 		}
 		
-		//Scale value.
+		
+		
+		/*//Scale value.
 				
 		try {
 			SVMScale s = new SVMScale();
@@ -78,11 +91,8 @@ public class Main {
 		} catch (Exception e) {
 			// TODO: handle exception
 			System.out.println("Error test SVM");
-		}
+		}*/
 		
-		// Recalculate feature (add context feature)		
-		
-		
-		
+		// Recalculate feature (add context feature)				
 	}
 }
