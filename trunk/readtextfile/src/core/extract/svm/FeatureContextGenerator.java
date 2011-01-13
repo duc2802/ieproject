@@ -1,5 +1,10 @@
 package core.extract.svm;
 
+import java.io.File;
+import java.util.ArrayList;
+
+import utilily.extract.svm.HeaderReaderWriter;
+
 public class FeatureContextGenerator {
 	
 	Header[] headers;
@@ -14,28 +19,118 @@ public class FeatureContextGenerator {
 	}
 	
 	public void ForTrain(){
+		String pathContextTrainFile = "out//trainContext.txt";
 		
-	}
-	
-	public ContextSpecificFeature calculateContextFeature(Header header, Line line){
-		ContextSpecificFeature contextSpecificFeature = new ContextSpecificFeature();
+		StringBuffer content = new StringBuffer();
 		
-		int totalLineInHeader = header.getLine().size();
-		int positionOfLine = (int) line.getFeature().getCLinePosition();
-		for (int i = 0; i < 5; i++) {
-			if((i + positionOfLine - n) >= 0) {
-				contextSpecificFeature.getPreviousLineLable().set(n - 1 - i, header.get(i + positionOfLine - n).getLabel());
-			}else {
-				contextSpecificFeature.getPreviousLineLable().set(n - 1 - i, -1);
-			}
-			
-			if((positionOfLine + n - i) <= totalLineInHeader) {
-				contextSpecificFeature.getNextLineLable().set(n - 1 - i, header.get(positionOfLine + n - i).getLabel());
-			}else {
-				contextSpecificFeature.getNextLineLable().set(n - 1 - i, -1);
+		for (int i = 0; i < 600; i++) {
+			ArrayList<Line> lines = headers[i].getLine();
+			ContextSpecificFeature contextSpecificFeature = new ContextSpecificFeature();
+			for (Line line : lines) {
+				contextSpecificFeature = calculateContextFeature(headers[i], line);
+				line.setContextSpecificFeature(contextSpecificFeature);
+				
+				StringBuffer aLine = new StringBuffer();
+				aLine.append(line.getLabel());
+				aLine.append(" ");
+				aLine.append("1:" + line.getFeature().getCSentenceLength());
+				aLine.append(" ");
+				aLine.append("2:" + line.getFeature().getCLinePosition());
+				aLine.append(" ");
+				aLine.append("3:" + line.getFeature().getCDictWordNumPer());
+				aLine.append(" ");
+				aLine.append("4:" + line.getFeature().getCNonDictWordNumPer());
+				aLine.append(" ");
+				aLine.append("5:" + line.getFeature().getCCap1DictWordNumPer());
+				aLine.append(" ");
+				aLine.append("6:" + line.getFeature().getCCap1NonDictWordNumPer());
+				aLine.append(" ");
+				aLine.append("7:" + line.getFeature().getCDigitNumPer());
+				aLine.append(" ");
+				aLine.append("8:" + line.getFeature().getCAffiNumPer());
+				aLine.append(" ");
+				aLine.append("9:" + line.getFeature().getCAddNumPer());
+				aLine.append(" ");
+				aLine.append("10:" + line.getFeature().getCDateNumPer());
+				aLine.append(" ");
+				aLine.append("11:" + line.getFeature().getCDegreeNumPer());
+				aLine.append(" ");
+				aLine.append("12:" + line.getFeature().getCPubNumPer());
+				aLine.append(" ");
+				aLine.append("13:" + line.getFeature().getCNoteNumPer());
+				aLine.append(" ");
+				aLine.append("14:" + line.getFeature().getCPhoneNumPer());
+				
+				aLine.append("\n");
+				System.out.println(aLine.toString());							
 			}
 		}
 		
+		File trainFile = new File(pathContextTrainFile);	
+		
+		try {
+			HeaderReaderWriter.write(trainFile, pathContextTrainFile.toString());
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+			System.out.println("Error in write context train file process");
+		}
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	public ContextSpecificFeature calculateContextFeature(Header header, Line line){
+		ContextSpecificFeature contextSpecificFeature = new ContextSpecificFeature();	
+		int totalLineInHeader = header.getLine().size();
+		int positionOfLine = (int) line.getFeature().getCLinePosition();
+		for (int i = 0; i < 5; i++) {
+			if((i + positionOfLine - n) >= 0) {				
+				Line lineTemp = header.getLineWithPosition(i + positionOfLine - n);
+				System.out.println(n - 1 - i + " : " + lineTemp.getFeature().getCLinePosition());
+				contextSpecificFeature.setPrevious(n - 1 - i, lineTemp.getLabel());
+			}
+			
+			if((positionOfLine + n - i) <= totalLineInHeader) {
+				Line lineTemp = header.getLineWithPosition(positionOfLine + n - i);
+				System.out.println(n - 1 - i + " : " + lineTemp.getFeature().getCLinePosition());
+				contextSpecificFeature.setNext(n - 1 - i, lineTemp.getLabel());
+			}
+		}			
 		return contextSpecificFeature;
 	}
 }

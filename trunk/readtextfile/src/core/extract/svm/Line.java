@@ -149,7 +149,13 @@ public class Line {
 		return wordTemp;
 	}
 	
+	public void setContextSpecificFeature(ContextSpecificFeature c) {
+		this.contextSpecificFeature = c;
+	}
 	
+	public ContextSpecificFeature getContextSpecificFeature(){
+		return this.contextSpecificFeature;
+	}
 	
 	public ArrayList<Word> getWords() {
 		return words;

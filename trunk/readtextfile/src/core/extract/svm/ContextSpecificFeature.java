@@ -1,35 +1,36 @@
 package core.extract.svm;
 
-import java.util.ArrayList;
 
 public class ContextSpecificFeature {
-	private ArrayList<Integer> previousLineLable;
-	private ArrayList<Integer> nextLineLable;
+	private int[] previousLineLable;
+	private int[] nextLineLable;
 	
 	public ContextSpecificFeature(){
-		if(previousLineLable != null){
-			previousLineLable = new ArrayList<Integer>();
+		if(previousLineLable == null){
+			previousLineLable = new int[5];
+		}
+		if(nextLineLable == null) {
+			nextLineLable = new int[5];
 		}		
-		if(nextLineLable != null) {
-			nextLineLable = new ArrayList<Integer>();
-		}		
-	}
-	
-	public ArrayList<Integer> getPreviousLineLable() {
-		return previousLineLable;
+		for (int i = 0; i < 5; i++) {
+			previousLineLable[i] = 0;
+			nextLineLable[i] = 0;
+		}
 	}
 
-	public void setPreviousLineLable(ArrayList<Integer> previousLineLable) {
-		this.previousLineLable = previousLineLable;
-	}
-
-	public ArrayList<Integer> getNextLineLable() {
-		return nextLineLable;
-	}
-
-	public void setNextLineLable(ArrayList<Integer> nextLineLable) {
-		this.nextLineLable = nextLineLable;
+	public void setPrevious(int index, int value){
+		previousLineLable[index] = value;
 	}
 	
+	public void setNext(int index, int value){
+		nextLineLable[index] = value;
+	}
 	
+	public int getNext(int index){
+		return nextLineLable[index];
+	}
+	
+	public int getPrevious(int index){
+		return previousLineLable[index];
+	}
 }

@@ -25,7 +25,7 @@ public class Header {
 	 */
 	private void intializeHeader(String headerText){
 				
-		String contentHeaderNonTag = StringProcess.removeAllTagHeader(headerText);		
+		String contentHeaderNonTag = StringProcess.removeAllTagHeader(headerText);				
 		String[] linesAndNumber = StringProcess.convertHeaderTextToLines(contentHeaderNonTag);
 		
 		String textTag = LineProcessUtilities.getSubString(headerText, TagConst.TITLE_TAG_START, TagConst.TITLE_TAG_END);
@@ -224,7 +224,14 @@ public class Header {
 		}
 	}
 	
-	
+	public Line getLineWithPosition(float position){
+		for (Line line : lines) {
+			if(line.getFeature().getCLinePosition() == position){
+				return line;
+			}
+		}		
+		return null;
+	}
 	
 	/**
 	 * 
