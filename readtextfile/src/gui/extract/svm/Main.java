@@ -39,23 +39,26 @@ public class Main {
 		try {
 			headers = featureIndependentGenerator.run();
 			
+			for (int i = 0; i < headers[0].getLine().size(); i++) {
+				System.out.println(headers[0].getLine().get(i).getContent() + " : " + headers[0].getLine().get(i).getFeature().getCLinePosition());
+			}
+						
 			FeatureContextGenerator featureContextGenerator = new FeatureContextGenerator(headers);
+			System.out.println(headers[0].getLine().get(6).getContent());
 			ContextSpecificFeature contextSpecificFeature = featureContextGenerator.calculateContextFeature(headers[0], headers[0].getLine().get(6));
 			
 			for (int i = 0; i < 5; i++) {
-				System.out.println("next : " + contextSpecificFeature.getNextLineLable().get(i));
-				System.out.println("previous : " + contextSpecificFeature.getPreviousLineLable().get(i));
+				System.out.println("next : " + contextSpecificFeature.getNext(i));
+				System.out.println("previous : " + contextSpecificFeature.getPrevious(i));
 			}			
 			System.out.println();
 			System.gc();
 		} catch (Exception e) {
 			// TODO: handle exception
 			System.out.println("Error calculate independent vector");
-		}
+		}		
 		
-		
-		
-		/*//Scale value.
+		//Scale value.
 				
 		try {
 			SVMScale s = new SVMScale();
@@ -91,7 +94,7 @@ public class Main {
 		} catch (Exception e) {
 			// TODO: handle exception
 			System.out.println("Error test SVM");
-		}*/
+		}
 		
 		// Recalculate feature (add context feature)				
 	}
