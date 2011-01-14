@@ -118,27 +118,6 @@ public class StatisticResult {
 		StatisticResult sr = new StatisticResult();
 		sr.buildLableMap(resultFileName, pathTestScaleFile);
 		
-		/*int totalCorrectLine = 0;		
-		int totalTitleLine = 0;
-		int totalCorrectTitleLine = 0;
-		
-		ArrayList<LabelMap> lableMapArrayList = sr.getList();
-		int lengthLine = lableMapArrayList.size();
-		for (LabelMap lm : lableMapArrayList) {
-			if(lm.getMachine() == lm.getHand()){
-				totalCorrectLine++;
-			}
-			if(lm.getHand() == 1){
-				totalTitleLine++;
-				if(lm.getMachine() == 1){
-					totalCorrectTitleLine++;
-				}
-			}
-		}
-		
-		System.out.println("Summer line predict correct : " + totalCorrectLine + "/" + lengthLine + " (" + (double) totalCorrectLine / lengthLine * 100 + "%)");
-		System.out.println("Summer TITLE line predict correct : " + totalCorrectTitleLine + "/" + totalTitleLine + " (" + (double)totalCorrectTitleLine / totalTitleLine * 100 + "%)");
-		*/
 		sr.returnResultBy(LabelConst.ABSTRACT);
 		sr.returnResultBy(LabelConst.ADDRESS);
 		sr.returnResultBy(LabelConst.AFFILIATION);
