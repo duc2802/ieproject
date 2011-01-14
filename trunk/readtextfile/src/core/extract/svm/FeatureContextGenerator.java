@@ -76,44 +76,6 @@ public class FeatureContextGenerator {
 		}
 	}
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	public ContextSpecificFeature calculateContextFeature(Header header, Line line){
 		ContextSpecificFeature contextSpecificFeature = new ContextSpecificFeature();	
 		int totalLineInHeader = header.getLine().size();

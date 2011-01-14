@@ -56,8 +56,9 @@ public class Main {
 		} catch (Exception e) {
 			// TODO: handle exception
 			System.out.println("Error calculate independent vector");
-		}		
+		}	
 		
+		/*
 		//Scale value.
 				
 		try {
@@ -95,7 +96,7 @@ public class Main {
 			// TODO: handle exception
 			System.out.println("Error test SVM");
 		}
-		
+		*/
 		// Recalculate feature (add context feature)				
 	}
 }
