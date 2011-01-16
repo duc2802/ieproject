@@ -18,7 +18,7 @@ public class FeatureContextGenerator {
 		
 	}
 	
-	public void ForTrain(){
+	public void calculateContextForTrain(){
 		String pathContextTrainFile = "out//trainContext.txt";
 		
 		StringBuffer content = new StringBuffer();
@@ -61,15 +61,24 @@ public class FeatureContextGenerator {
 				aLine.append(" ");
 				aLine.append("14:" + line.getFeature().getCPhoneNumPer());
 				
+				int temp = 15;
+				float[][] previousMetrix = line.getContextSpecificFeature().getPreviousMetrix();
+				for (int j = 0; j < ContextSpecificFeature.N; j++) {
+					for (int t = 0; t < ContextSpecificFeature.L; t++) {
+						aLine.append(" ");
+						aLine.append(temp + ":" + previousMetrix[j][t]);
+						temp++;
+					}					
+				}
 				aLine.append("\n");
-				System.out.println(aLine.toString());							
+				content.append(aLine.toString());						
 			}
 		}
 		
 		File trainFile = new File(pathContextTrainFile);	
 		
 		try {
-			HeaderReaderWriter.write(trainFile, pathContextTrainFile.toString());
+			HeaderReaderWriter.write(trainFile, content.toString());
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 			System.out.println("Error in write context train file process");
@@ -81,7 +90,7 @@ public class FeatureContextGenerator {
 		int totalLineInHeader = header.getLine().size();
 		int positionOfLine = (int) line.getFeature().getCLinePosition();
 		for (int i = 0; i < 5; i++) {
-			if((i + positionOfLine - n) >= 0) {				
+			if((i + positionOfLine - n) > 0) {				
 				Line lineTemp = header.getLineWithPosition(i + positionOfLine - n);
 				System.out.println(n - 1 - i + " : " + lineTemp.getFeature().getCLinePosition());
 				contextSpecificFeature.setPrevious(n - 1 - i, lineTemp.getLabel());
