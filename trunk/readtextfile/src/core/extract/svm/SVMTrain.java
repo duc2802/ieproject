@@ -151,7 +151,7 @@ public class SVMTrain {
 		param.gamma = 0;	// 1/num_features
 		param.coef0 = 0;
 		param.nu = 0.5;
-		param.cache_size = 200;
+		param.cache_size = 600;
 		param.C = 1;
 		param.eps = 1e-3;
 		param.p = 0.1;

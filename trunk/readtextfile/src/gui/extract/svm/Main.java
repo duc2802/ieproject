@@ -32,34 +32,88 @@ public class Main {
 		//String pathFile = "text.txt";
 		
 		Header[] headers;
-		
-		// Calculate feature independent. 
-		
 		FeatureIndependentGenerator featureIndependentGenerator = new FeatureIndependentGenerator();
+		try {
+			// Calculate feature independent. 
+			headers = featureIndependentGenerator.run();	
+			FeatureContextGenerator contextGenerator = new FeatureContextGenerator(headers);
+			contextGenerator.calculateContextForTrain();
+			System.gc();
+			
+		/*	//Scale value.
+			SVMScale s = new SVMScale();
+			String command = "-l 0 -u 1 -s range out//test.txt";
+			s.run(command);
+			System.gc();
+			
+			// Training SVM.	
+			SVMTrain t = new SVMTrain();
+			String inputFileName = "out//train.scale.txt";
+			String modelFileName = "out//train.model";
+			t.run(inputFileName, modelFileName);
+			System.gc();
+			
+			// Test SVM
+			SVMTest testSVM = new SVMTest();
+			String pathTestScaleFile = "out//test.scale.txt";
+			//String modelFileName = "out//train.model";
+			String resultFileName = "out//result.txt";
+			testSVM.run(pathTestScaleFile, modelFileName, resultFileName);
+			System.gc();*/
+			
+			
+		} catch (Exception e) {
+			// TODO: handle exception			
+			System.out.println("Error calculate independent vector");
+		}
+		
+		
+		
+		/*FeatureIndependentGenerator featureIndependentGenerator = new FeatureIndependentGenerator();
 		try {
 			headers = featureIndependentGenerator.run();
 			
 			for (int i = 0; i < headers[0].getLine().size(); i++) {
-				System.out.println(headers[0].getLine().get(i).getContent() + " : " + headers[0].getLine().get(i).getFeature().getCLinePosition());
+				System.out.println(headers[0].getLine().get(i).getContent() + " : " + headers[0].getLine().get(i).getFeature().getCLinePosition() +
+						" : " + headers[0].getLine().get(i).getLabel());
 			}
 						
 			FeatureContextGenerator featureContextGenerator = new FeatureContextGenerator(headers);
 			System.out.println(headers[0].getLine().get(6).getContent());
-			ContextSpecificFeature contextSpecificFeature = featureContextGenerator.calculateContextFeature(headers[0], headers[0].getLine().get(6));
+			ContextSpecificFeature contextSpecificFeature = featureContextGenerator.calculateContextFeature(headers[0], headers[0].getLine().get(5));
 			
-			for (int i = 0; i < 5; i++) {
+			for (int i = 0; i < ContextSpecificFeature.N; i++) {
 				System.out.println("next : " + contextSpecificFeature.getNext(i));
 				System.out.println("previous : " + contextSpecificFeature.getPrevious(i));
 			}			
+			
+			float[][] previousMetrix = contextSpecificFeature.getPreviousMetrix();
+			float[][] nextMetrix = contextSpecificFeature.getNextMetrix();
+			System.out.println("Previous : \n");
+			for (int i = 0; i < ContextSpecificFeature.N; i++) {
+				for (int j = 0; j < ContextSpecificFeature.L; j++) {
+					System.out.print("\t" + previousMetrix[i][j]);
+				}
+				System.out.println("\n");
+			}
+			
+			System.out.println("Next : \n");
+			for (int i = 0; i < ContextSpecificFeature.N; i++) {
+				for (int j = 0; j < ContextSpecificFeature.L; j++) {
+					System.out.print("\t" + nextMetrix[i][j]);
+				}
+				System.out.println("\n");
+			}
+			
 			System.out.println();
 			System.gc();
 		} catch (Exception e) {
 			// TODO: handle exception
 			System.out.println("Error calculate independent vector");
-		}	
+		}	*/
 		
-		/*
-		//Scale value.
+		
+		/*//Scale value.
 				
 		try {
 			SVMScale s = new SVMScale();
@@ -97,6 +151,14 @@ public class Main {
 			System.out.println("Error test SVM");
 		}
 		*/
-		// Recalculate feature (add context feature)				
+		// Recalculate feature (add context feature)		
+		
+		/*try {
+			FeatureContextGenerator contextGenerator = new FeatureContextGenerator(headers);
+			contextGenerator.calculateContextForTrain();
+		} catch (Exception e) {
+			// TODO: handle exception
+			System.out.println("Error calculate context vector");
+		}*/
 	}
 }
