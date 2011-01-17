@@ -40,7 +40,7 @@ public class Main {
 			contextGenerator.calculateContextForTrain();
 			System.gc();
 			
-		/*	//Scale value.
+			/*//Scale value.
 			SVMScale s = new SVMScale();
 			String command = "-l 0 -u 1 -s range out//test.txt";
 			s.run(command);
@@ -59,8 +59,8 @@ public class Main {
 			//String modelFileName = "out//train.model";
 			String resultFileName = "out//result.txt";
 			testSVM.run(pathTestScaleFile, modelFileName, resultFileName);
-			System.gc();*/
-			
+			System.gc();
+			*/
 			
 		} catch (Exception e) {
 			// TODO: handle exception			
@@ -73,14 +73,14 @@ public class Main {
 		try {
 			headers = featureIndependentGenerator.run();
 			
-			for (int i = 0; i < headers[0].getLine().size(); i++) {
-				System.out.println(headers[0].getLine().get(i).getContent() + " : " + headers[0].getLine().get(i).getFeature().getCLinePosition() +
-						" : " + headers[0].getLine().get(i).getLabel());
+			for (int i = 0; i < headers[8].getLine().size(); i++) {
+				System.out.println(headers[8].getLine().get(i).getContent() + " : " + headers[8].getLine().get(i).getFeature().getCLinePosition() +
+						" : " + headers[8].getLine().get(i).getLabel());
 			}
 						
 			FeatureContextGenerator featureContextGenerator = new FeatureContextGenerator(headers);
-			System.out.println(headers[0].getLine().get(6).getContent());
-			ContextSpecificFeature contextSpecificFeature = featureContextGenerator.calculateContextFeature(headers[0], headers[0].getLine().get(5));
+			System.out.println(headers[8].getLine().get(6).getContent());
+			ContextSpecificFeature contextSpecificFeature = featureContextGenerator.calculateContextFeature(headers[8], headers[0].getLine().get(2));
 			
 			for (int i = 0; i < ContextSpecificFeature.N; i++) {
 				System.out.println("next : " + contextSpecificFeature.getNext(i));
@@ -110,8 +110,8 @@ public class Main {
 		} catch (Exception e) {
 			// TODO: handle exception
 			System.out.println("Error calculate independent vector");
-		}	*/
-		
+		}	
+		*/
 		
 		/*//Scale value.
 				

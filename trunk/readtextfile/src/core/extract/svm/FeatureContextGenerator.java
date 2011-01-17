@@ -24,6 +24,7 @@ public class FeatureContextGenerator {
 		StringBuffer content = new StringBuffer();
 		
 		for (int i = 0; i < 600; i++) {
+			System.out.println("Header : " + i);
 			ArrayList<Line> lines = headers[i].getLine();
 			ContextSpecificFeature contextSpecificFeature = new ContextSpecificFeature();
 			for (Line line : lines) {
@@ -70,6 +71,17 @@ public class FeatureContextGenerator {
 						temp++;
 					}					
 				}
+				
+				//temp = 15;
+				float[][] nextMetrix = line.getContextSpecificFeature().getNextMetrix();
+				for (int j = 0; j < ContextSpecificFeature.N; j++) {
+					for (int t = 0; t < ContextSpecificFeature.L; t++) {
+						aLine.append(" ");
+						aLine.append(temp + ":" + nextMetrix[j][t]);
+						temp++;
+					}					
+				}
+				
 				aLine.append("\n");
 				content.append(aLine.toString());						
 			}
@@ -92,14 +104,18 @@ public class FeatureContextGenerator {
 		for (int i = 0; i < 5; i++) {
 			if((i + positionOfLine - n) > 0) {				
 				Line lineTemp = header.getLineWithPosition(i + positionOfLine - n);
-				System.out.println(n - 1 - i + " : " + lineTemp.getFeature().getCLinePosition());
-				contextSpecificFeature.setPrevious(n - 1 - i, lineTemp.getLabel());
+				if(lineTemp != null) {
+					System.out.println(n - 1 - i + " : " + lineTemp.getFeature().getCLinePosition());
+					contextSpecificFeature.setPrevious(n - 1 - i, lineTemp.getLabel());
+				}				
 			}
 			
 			if((positionOfLine + n - i) <= totalLineInHeader) {
 				Line lineTemp = header.getLineWithPosition(positionOfLine + n - i);
-				System.out.println(n - 1 - i + " : " + lineTemp.getFeature().getCLinePosition());
-				contextSpecificFeature.setNext(n - 1 - i, lineTemp.getLabel());
+				if(lineTemp != null) {
+					System.out.println(n - 1 - i + " : " + lineTemp.getFeature().getCLinePosition());
+					contextSpecificFeature.setNext(n - 1 - i, lineTemp.getLabel());
+				}				
 			}
 		}			
 		return contextSpecificFeature;

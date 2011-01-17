@@ -28,6 +28,7 @@ public class HeaderReaderWriter {
 			
 			while((line = bufferedReader.readLine()) != null){
 					dataset.append(line);
+					dataset.append(" ");
 			}			
 			String[] header = dataset.toString().split(TagConst.HEADER_TAG_START);
 			return header;
