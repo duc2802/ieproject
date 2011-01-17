@@ -92,7 +92,7 @@ with Multidestination Worms  +L+ </title>
 
 <affiliation> Dept. of Computer and Information Science +L+ 
 
- The Ohio State University, </affiliation> <address> Columbus, OH 43210-1277 +L+ </address>
+ The Ohio State University, +L+ </affiliation> <address> Columbus, OH 43210-1277 +L+ </address>
 
 <phone> Tel: (614)-292-5199, Fax: (614)-292-2911 +L+ </phone>
 
