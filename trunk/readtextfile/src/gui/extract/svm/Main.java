@@ -38,6 +38,7 @@ public class Main {
 			headers = featureIndependentGenerator.run();	
 			FeatureContextGenerator contextGenerator = new FeatureContextGenerator(headers);
 			contextGenerator.calculateContextForTrain();
+			contextGenerator.calculateContextForTest("out//result.txt");
 			System.gc();
 			
 			/*//Scale value.
