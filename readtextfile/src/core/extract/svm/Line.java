@@ -10,6 +10,7 @@ public class Line {
 	
 	private String content;
 	private int label; //1..15 : constrain in a other file.
+	private int independentLable;
 	private ArrayList<Word> words;
 	private LineSpecificFeature lineSpecificFeature;
 	private ContextSpecificFeature contextSpecificFeature;
@@ -183,6 +184,11 @@ public class Line {
 	public void setFeature(LineSpecificFeature feature) {
 		this.lineSpecificFeature = feature;
 	}
-	
+	public int getIndependentLabel() {
+		return independentLable;
+	}
+	public void setIndependentLabel(int label) {
+		this.independentLable = label;
+	}
 	
 }

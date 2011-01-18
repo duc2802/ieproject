@@ -31,7 +31,7 @@ public class Main {
 		// TODO Auto-generated method stub
 		//String pathFile = "text.txt";
 		
-		Header[] headers;
+	/*	Header[] headers;
 		FeatureIndependentGenerator featureIndependentGenerator = new FeatureIndependentGenerator();
 		try {
 			// Calculate feature independent. 
@@ -41,33 +41,11 @@ public class Main {
 			contextGenerator.calculateContextForTest("out//result.txt");
 			System.gc();
 			
-			/*//Scale value.
-			SVMScale s = new SVMScale();
-			String command = "-l 0 -u 1 -s range out//test.txt";
-			s.run(command);
-			System.gc();
-			
-			// Training SVM.	
-			SVMTrain t = new SVMTrain();
-			String inputFileName = "out//train.scale.txt";
-			String modelFileName = "out//train.model";
-			t.run(inputFileName, modelFileName);
-			System.gc();
-			
-			// Test SVM
-			SVMTest testSVM = new SVMTest();
-			String pathTestScaleFile = "out//test.scale.txt";
-			//String modelFileName = "out//train.model";
-			String resultFileName = "out//result.txt";
-			testSVM.run(pathTestScaleFile, modelFileName, resultFileName);
-			System.gc();
-			*/
-			
 		} catch (Exception e) {
 			// TODO: handle exception			
 			System.out.println("Error calculate independent vector");
 		}
-		
+		*/
 		
 		
 		/*FeatureIndependentGenerator featureIndependentGenerator = new FeatureIndependentGenerator();
@@ -114,18 +92,7 @@ public class Main {
 		}	
 		*/
 		
-		/*//Scale value.
-				
-		try {
-			SVMScale s = new SVMScale();
-			String command = "-l 0 -u 1 -s range out//test.txt";
-			s.run(command);
-			System.gc();
-		} catch (Exception e) {
-			// TODO: handle exception
-			System.out.println("Error scale value");
-		}		
-		
+	/*	
 		// Training SVM.		
 		try {
 			SVMTrain t = new SVMTrain();
@@ -150,8 +117,32 @@ public class Main {
 		} catch (Exception e) {
 			// TODO: handle exception
 			System.out.println("Error test SVM");
+		}*/
+		
+		// Training SVM context.		
+		try {
+			SVMTrain t = new SVMTrain();
+			String inputFileName = "out//trainContext.scale.txt";
+			String modelFileName = "out//trainContext.model";
+			t.run(inputFileName, modelFileName);
+			System.gc();			
+		} catch (Exception e) {
+			// TODO: handle exception
+			System.out.println("Error trainning SVM");
 		}
-		*/
+		
+		try {
+			SVMTest testSVM = new SVMTest();
+			String pathTestScaleFile = "out//testContext.scale.txt";
+			String modelFileName = "out//trainContext.model";
+			String resultFileName = "out//resultContext.txt";
+			testSVM.run(pathTestScaleFile, modelFileName, resultFileName);
+			System.gc();
+		} catch (Exception e) {
+			// TODO: handle exception
+			System.out.println("Error test SVM");
+		}
+		
 		// Recalculate feature (add context feature)		
 		
 		/*try {
