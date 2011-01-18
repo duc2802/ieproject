@@ -365,7 +365,8 @@ public class SVMScale
 	public static void main(String argv[]) throws IOException
 	{
 		SVMScale s = new SVMScale();
-		String command = "-l 0 -u 1 -s range out//test.txt";
-		s.run(command);
+		String command = "-l 0 -u 1 -s range out//testContext.txt";
+		String sacleContent = s.run(command);
+		
 	}
 }
