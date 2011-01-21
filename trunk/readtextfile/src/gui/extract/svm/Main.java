@@ -31,8 +31,8 @@ public class Main {
 		// TODO Auto-generated method stub
 		//String pathFile = "text.txt";
 		
-	/*	Header[] headers;
-		FeatureIndependentGenerator featureIndependentGenerator = new FeatureIndependentGenerator();
+		Header[] headers;
+		/*FeatureIndependentGenerator featureIndependentGenerator = new FeatureIndependentGenerator();
 		try {
 			// Calculate feature independent. 
 			headers = featureIndependentGenerator.run();	
@@ -48,18 +48,18 @@ public class Main {
 		*/
 		
 		
-		/*FeatureIndependentGenerator featureIndependentGenerator = new FeatureIndependentGenerator();
+		FeatureIndependentGenerator featureIndependentGenerator = new FeatureIndependentGenerator();
 		try {
 			headers = featureIndependentGenerator.run();
 			
-			for (int i = 0; i < headers[8].getLine().size(); i++) {
-				System.out.println(headers[8].getLine().get(i).getContent() + " : " + headers[8].getLine().get(i).getFeature().getCLinePosition() +
-						" : " + headers[8].getLine().get(i).getLabel());
+			for (int i = 0; i < headers[0].getLine().size(); i++) {
+				System.out.println(headers[0].getLine().get(i).getContent() + " : " + headers[0].getLine().get(i).getFeature().getCLinePosition() +
+						" : " + headers[0].getLine().get(i).getLabel());
 			}
 						
 			FeatureContextGenerator featureContextGenerator = new FeatureContextGenerator(headers);
-			System.out.println(headers[8].getLine().get(6).getContent());
-			ContextSpecificFeature contextSpecificFeature = featureContextGenerator.calculateContextFeature(headers[8], headers[0].getLine().get(2));
+			System.out.println(headers[0].getLine().get(6).getContent());
+			ContextSpecificFeature contextSpecificFeature = featureContextGenerator.calculateContextFeature(headers[0], headers[0].getLine().get(2));
 			
 			for (int i = 0; i < ContextSpecificFeature.N; i++) {
 				System.out.println("next : " + contextSpecificFeature.getNext(i));
@@ -90,7 +90,7 @@ public class Main {
 			// TODO: handle exception
 			System.out.println("Error calculate independent vector");
 		}	
-		*/
+		
 		
 	/*	
 		// Training SVM.		
@@ -120,7 +120,7 @@ public class Main {
 		}*/
 		
 		// Training SVM context.		
-		try {
+		/*try {
 			SVMTrain t = new SVMTrain();
 			String inputFileName = "out//trainContext.scale.txt";
 			String modelFileName = "out//trainContext.model";
@@ -142,7 +142,7 @@ public class Main {
 			// TODO: handle exception
 			System.out.println("Error test SVM");
 		}
-		
+		*/
 		// Recalculate feature (add context feature)		
 		
 		/*try {
